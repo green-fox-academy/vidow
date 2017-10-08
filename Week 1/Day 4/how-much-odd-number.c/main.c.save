@@ -19,15 +19,14 @@ int main()
         if (i % 2 == 1){
 
                 if (odd_numbers > 0)
-                printf(", %d", i);
+
 
                 else
-                printf("%d", i);
 
                 odd_numbers++;
         }
     }
-                printf(" this is %d odd numbers between %d and %d.", odd_numbers, a, b);
+                printf("\n %d %d odd numbers between %d and %d", odd_numbers, a, b);
 
 	return 0;
 }

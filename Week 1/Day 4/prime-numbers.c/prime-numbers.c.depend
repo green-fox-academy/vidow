@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1507484882 source:c:\users\macbook\desktop\c_projects\week 1\day 4\prime-numbers.c\main.c
+	<stdio.h>
+	<stdlib.h>
+
