@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1507564445 source:c:\users\macbook\desktop\c_projects\week 2\day 1\factorio.c\main.c
+	<stdio.h>
+	<stdlib.h>
+	"numbers.h"
+
+1507564466 c:\users\macbook\desktop\c_projects\week 2\day 1\factorio.c\numbers.h
+

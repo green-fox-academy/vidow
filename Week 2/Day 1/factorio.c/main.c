@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "numbers.h"
+
+// create a function called `factorio`
+// that returns it's input's factorial with and without recursion
+// again the parameters value should be stored in a .h file
+//
+
+int main()
+{
+
+    factorio(a);
+
+    return 0;
+}
+
+void factorio(int number1)
+{
+    int i = 0;
+
+    printf("Factorial of %d" , number1);
+
+    for (i = 1; i <= a; i++)
+    {
+        number1 *= i;
+    }
+
+    printf(" is %d.\n", number1);
+
+    return;
+}
