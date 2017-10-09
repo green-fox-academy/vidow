@@ -21,7 +21,7 @@ void factorio(int number1)
 
     printf("Factorial of %d" , number1);
 
-    for (i = 1; i <= a; i++)
+    for (i = 1; i <= a-1; i++)
     {
         number1 *= i;
     }
