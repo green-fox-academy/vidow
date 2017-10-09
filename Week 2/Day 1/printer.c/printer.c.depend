@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1507558454 source:c:\users\macbook\desktop\c_projects\week 2\day 1\printer.c\main.c
+1507559347 source:c:\users\macbook\desktop\c_projects\week 2\day 1\printer.c\main.c
 	<stdio.h>
 	<stdlib.h>
 	"printer.h"
 
-1507558514 c:\users\macbook\desktop\c_projects\week 2\day 1\printer.c\printer.h
+1507559297 c:\users\macbook\desktop\c_projects\week 2\day 1\printer.c\printer.h
 

@@ -16,6 +16,6 @@ int main()
 
 void greet(int name1, int name2, int name3, int name4, int name5, int name6)
 {
-    printf("Greetings, %s or %s or %s or %s or %s!\n", name1, name2, name3, name4, name5);
+    printf("Greetings, %s or %s or %s!\n", name1, name2, name3, name4, name5);
     return;
 }

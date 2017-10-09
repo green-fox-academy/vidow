@@ -1,0 +1,6 @@
+#define name1 "Greenfox"
+#define name2 "Redfox"
+#define name3 "Bluefox"
+#define name4 "Pinkfox"
+#define name5 "Whitefox"
+#define name6 "Purplefox"
