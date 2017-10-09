@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "printer.h"
+
+// Create a function called `printer`
+// which prints the input parameters
+// can have multiple number of arguments
+// store your variables in a .h file
+
+int main()
+{
+    printer(a, b, c, d);
+    printer(4, 11, 6, 99);
+    printer(123, , c, 6)
+
+    return 0;
+}
+
+void printer( int NUM1, int NUM2, int NUM3, int NUM4)
+{
+
+    printf("%d, %d, %d, %d\n", NUM1, NUM2, NUM3, NUM4);
+    return;
+
+}
+
