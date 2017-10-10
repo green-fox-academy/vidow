@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <limits.h>
+#include "INT_MIN.H"
+
+int main()
+{
+	int number_array[8] = {48, 59, 2, -8, 55, 56, 78, 12};
+
+	//TODO:
+	// Write a C program to find the two largest element in an array using only 1 for loop
+	// From <limits.h> use INT_MIN: this is the least integer
+
+	int max_first = INT_MIN;
+	int max_second = INT_MIN;
+	int n = sizeof(number_array) / sizeof(number_array[0]);
+
+	for (int i = 0; i < n; i++){
+
+        if (number_array[i] > max_first){
+
+            max_second = max_first;
+
+            max_first = number_array[i];
+        }
+
+        else if (number_array[i] > max_second){
+            max_second = number_array[i];
+        }
+	}
+
+    printf("Max number is %d and second max number is %d\n", max_first, max_second);
+
+	return 0;
+}
