@@ -6,14 +6,13 @@ int main()
     //print out the array
 
     int my_array[50];
- //   int n = 0;
+    int number = 200;
 
-        for (int i = 0; i < my_array; i++){
+
+        for (int i = 0; i < number; i++){
 
                 my_array[i] = i;
 
-            printf("%d\n", my_array[i]);
         }
-
     return 0;
 }

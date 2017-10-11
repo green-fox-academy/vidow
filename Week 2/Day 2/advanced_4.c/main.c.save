@@ -6,8 +6,34 @@ int main()
     //print out the array
 
     int my_array[50];
-    
-        for (int i = 200; i > 0; i--)
+    int number = 200;
+
+
+        for (int i = 0; i < n; i++){
+
+                my_array[i] = i;
+
+            printf("%d\n", my_array[i]);
+        }
+
+        for (i = 0; i < n; i++){
+
+            for (j = i + 1; j < n; j++){
+
+                if (number[i] < number[j])
+                {
+                    a = number[i];
+                    number[i] = number[j];
+                    number[j] = a;
+                }
+            }
+        }
+        printf("Descending order: ");
+
+        for (i = 0; i < n; i++){
+
+            printf("%d\n", number[i]);
+        }
 
     return 0;
 }
