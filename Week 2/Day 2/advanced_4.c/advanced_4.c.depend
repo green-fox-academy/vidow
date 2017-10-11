@@ -1,4 +1,5 @@
 # depslib dependency file v1.0
-1507650024 source:c:\users\macbook\desktop\c_projects\week 2\day 2\advanced_4.c\main.c
+1507722061 source:c:\users\macbook\desktop\c_projects\week 2\day 2\advanced_4.c\main.c
+	<stdio.h>
 	<stdio.h>
 
