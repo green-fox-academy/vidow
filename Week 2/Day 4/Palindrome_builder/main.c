@@ -14,37 +14,27 @@ input	output
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main()
 {
 
-    char word[255];
-    char duplicate[255];
-    int temp = 0;
+    char word[250];
+    int n = strlen(word);
 
     printf("Enter a word to create it's palindrome.\n");
-    scanf("%c ", word);
 
-    reverse(word);
+    scanf("%s", &word);
+//    gets(word);
+    printf("%s", word);
 
- /*   for (int i = 0; i < word; i++){
+    for (int i = strlen(word); i > 0; i--) {
 
-        word[i] = i;
+    printf("%c", word[i]);
 
-        printf("%c", word);
     }
-*/
+
+    printf("\n");
 
     return 0;
-}
-
-void reverse(char word)
-{
-
-    reverse(word + sizeof(word));
-
-    printf("%c", word);
-
-
-
 }
