@@ -10,28 +10,27 @@ input	output
 ""	     ""
 "greenfox"	"greenfoxxofneerg"
 "123"	"123321"
-*/
 
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+
 int main()
 {
-
-    char word[250];
+    char word[50];
     int n = strlen(word);
 
-    printf("Enter a word to create it's palindrome.\n");
+    printf("Enter a few characters to create it's palindrome: \n");
 
-    scanf("%s", &word);
+    scanf("%s", word);
 //    gets(word);
     printf("%s", word);
 
-    for (int i = strlen(word); i > 0; i--) {
+    for (int i = strlen(word) - 1; i >= 0; i--) {
 
-    printf("%c", word[i]);
-
+        printf("%c", word[i]);
     }
 
     printf("\n");
