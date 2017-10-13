@@ -1,3 +1,4 @@
+/*
 // C program for josephus problem
 
 #include <stdio.h>
