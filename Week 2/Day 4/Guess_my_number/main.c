@@ -35,24 +35,32 @@ srand(time(NULL));
 
     int r = 1 + rand() % 99;
     int number = 0;
+    int correct = 0;
+    int lives = 5;
 
-    printf("Wanna play? I have a number between 1 and 100. Guess what is that!\n");
+    printf("Wanna play? I have a number between 1 and 100. Guess what is that in 5 attempts!\n");
 
+    do {
+        scanf("%d", &number);
+        if (number == r){
+            printf("\nCongrats, you won! You have %d lives remaining.", lives);
+            correct = 1;
+            break;
+        }
+        if (number > r){
+            lives--;
+            printf("\nToo high. You have %d lives remaining.", lives);
+        }
 
-    scanf("%d", &number);
+        if (number < r){
+            lives--;
+            printf("\nToo low. You have %d lives remaining.", lives);
+        }
+        if (lives == 0){
+            printf(" The correct number was %d. Press any key to continue", r);
+            correct = 1;
+        }
+    } while (correct == 0);
 
-        if (number = r)
-
-            printf("\nCongrats, you won!");
-
-            else if (number > r)
-
-                printf("\nToo high, guess again.");
-
-            else
-
-                printf("\nToo low, guess again.");
-
-
-return 0;
+    return 0;
 }
