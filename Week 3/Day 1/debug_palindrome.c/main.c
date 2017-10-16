@@ -3,7 +3,7 @@
 #include <string.h>
 #include <conio.h>
 
-void  palindrome(char input);
+void  palindrome(char input[100]);
 
 int main()
 {
@@ -14,13 +14,13 @@ int main()
 	return 0;
 }
 
-void  palindrome(char input)
+void  palindrome(char input[100])
 {
 	printf("%s", input);
-	int pointer;
+	int *pointer;
 	int i;
 	for (i = 0; i < strlen(input); i++) {
-		pointer = input((strlen(input)) - i - 1);
+		pointer = &input[strlen(input) - i - 1];
 		printf("%c", *pointer);
 	}
 }
