@@ -7,58 +7,13 @@
 
 int main()
 {
-    char operation;
-    int firstNumber = 0;
-    int secondNumber = 0;
+    char operator;
+    char input[50] = "";
     int result = 0;
 
-    main_and_submenu();
+    main_menu();
 
-    switch(operation)
-    {
-        case '+':
-            result = firstNumber + secondNumber;
-            break;
-        case '-':
-            result = firstNumber - secondNumber;
-            break;
-        case '*':
-            result = firstNumber * secondNumber;
-            break;
-        case '/':
-            if (secondNumber == 0){
-                printf("Division by zero is not possible");
-                return;
-            }
-            result = firstNumber / secondNumber;
-            break;
-        case '%':
-            if (secondNumber == 0){
-                printf("Division by zero is not possible");
-                return;
-            result = (firstNumber % secondNumber);
-            break;
-        case '^':
-            result = pow(firstNumber, secondNumber);
-            break;
-        case '<':
-            result = sqrt(firstNumber);
-            break;
-        case 'log':
-            result = firstNumber / secondNumber;
-            break;
-        case 'binto':
-            result = (firstNumber % secondNumber);
-            break;
-        case 'hexto':
-            result = pow(firstNumber, secondNumber);
-            break;
-        case 'decto':
-            result = sqrt(firstNumber);
-            break;
-        default:
-            printf("Unexpected operation, press enter for main menu");
-    }
-}
+    sub_menu();
+
     return 0;
 }
