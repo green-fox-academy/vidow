@@ -9,11 +9,17 @@ int main()
 {
     char operator;
     char input[50] = "";
-    int result = 0;
+    float firstNumber = 0;
+    float secondNumber = 0;
+    float result = 0;
 
     main_menu();
 
     sub_menu();
+
+ //   scanf("%f %c %f", &firstNumber, &operator, &secondNumber);
+
+
 
     return 0;
 }
