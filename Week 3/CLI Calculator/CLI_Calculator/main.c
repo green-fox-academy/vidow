@@ -7,19 +7,9 @@
 
 int main()
 {
-    char operator;
-    char input[50] = "";
-    float firstNumber = 0;
-    float secondNumber = 0;
-    float result = 0;
-
     main_menu();
 
-    sub_menu();
-
- //   scanf("%f %c %f", &firstNumber, &operator, &secondNumber);
-
-
+    sub_menu_and_ops();
 
     return 0;
 }

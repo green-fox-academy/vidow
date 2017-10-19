@@ -3,17 +3,22 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
-char choise = 0;
-char subMenu = 0;
+//char choise = 0;
+//char subMenu = 0;
 int xyz = "%";
-char operator;
-char input[50] = "";
-float firstNumber = 0;
-float secondNumber = 0;
-float result = 0;
+//char operator;
+char input[100] = "";
+//float firstNumber = 0;
+//float secondNumber = 0;
+//float result = 0;
+float summition();
+float substraction();
+float multiplication();
+float division();
 
-
+//Function for main menu begins//
 void main_menu() //Function for the main menu.
 {
     char choise = 0;
@@ -23,24 +28,22 @@ void main_menu() //Function for the main menu.
 
     printf("\tCLI Calculator\n====================================\nusage: [number] [operation] [number]\nCommands:\n\n+  summation\n-  subtraction\n*  multiplication\n/  division\n%s  division with remainder\n^  squaring\n<  square root\n\nlog    logarithm\nbinto  binary to hex or dec\nhexto  hexadecimal to bin or dec\ndecto  decimal to bin or hex\n====================================\nexit   exiting from the program\nclear  clear the screen\nhelp   print usage\n====================================\n\n\tHit enter to start!\n\n====================================\n", xyz);
 
-    if (getchar() == '\n'){
+    while (getchar() != '\n');{
         clear();
+        if (strcmp(input, "exit") == 0){
+            exit(0);
+        }
+        if (strcmp(input, "help") == 0){
+            main_menu();
+        }
+        if (strcmp(input, "clear") == 0){
+            clear();
+        }
     }
-    else if (strcmp(input, "exit") == 0){
-        exit(0);
-    }
-    else if (strcmp(input, "help") == 0){
-        main_menu();
-    }
-    else if (strcmp(input, "clear") == 0){
-        clear();
-    }
-
-    sub_menu();
-
-    operation_func();
-
 }
+//Function for main menu ends//
+
+//Function for coords begins//
 COORD coord = {0,0};
 void set_cursor_pos(int x, int y)
 {
@@ -48,31 +51,53 @@ void set_cursor_pos(int x, int y)
 	coord.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
+//Function to coords ends//
 
+//Function to clear screen begins//
 void clear() //Function to clear the screen.
 {
 
     system("cls");
 
 }
+//Function to clear screen ends//
 
-void sub_menu() //Function for the sub menus.
+//Function for submenu begins//
+void sub_menu_and_ops() //Function for the sub menus.
 {
+    while (strcmp(input, "exit") != 0) {
+        gets(input);
 
-    if (strcmp(input, "\n") == 0) {
-        clear();
-    }
-    if (strcmp(input, "clear") == 0) {
-        clear();
-    }
-    if (strcmp(input, "help") == 0) {
-        main_menu();
-    }
-    if (strcmp(input, "exit") == 0){
-        exit(0);
+        if (strcmp(input, "exit") == 0){
+            exit(0);
+        }
+        if (strcmp(input, "help") == 0){
+            main_menu();
+        }
+        if (strcmp(input, "clear") == 0){
+            clear();
+        }
+        else if (strstr(input, "+")) {
+            summition(input);
+            fflush(stdin);
+        }
+        else if (strstr(input, "*")) {
+            multiplication(input);
+            fflush(stdin);
+        }
+        else if (strstr(input, "/")) {
+            division(input);
+            fflush(stdin);
+        }
+        else if (strstr(input, "-")) {
+            substraction(input);
+            fflush(stdin);
+        }
     }
 }
+//Function for submenu ends//
 
+/*
 void operation_func()
 {
 
@@ -86,10 +111,8 @@ void operation_func()
         default:
             printf("Error");
     }
-
-    sub_menu();
 }
-
+/*
 void back_to_menu()
 
 {
@@ -102,5 +125,77 @@ void back_to_menu()
     if (strcmp(input, "exit") == 0){
         exit(0);
     }
+}
+*/
+float summition(char (input[]))
+{
+    float a;
+    float b;
 
+    char* token = strtok (input, "+");
+    char* token2 = strtok (NULL, "+");
+
+    a = atof (token);
+    b = atof (token2);
+
+    printf("%.2f\n", a + b);
+}
+
+float substraction(char input[])
+{
+    float a;
+    float b;
+    char* token;
+    char* token2;
+    char* token_minus;
+
+    if (input[0] == '-'){
+        token = strtok (input, " ");
+        token_minus = strtok (NULL, " ");
+        token2 = strtok (NULL, " ");
+    }
+    else{
+        token = strtok (input, "-");
+        token2 = strtok (NULL, "-");
+    }
+
+    a = atof (token);
+    b = atof (token2);
+
+    printf("%.2f\n", a - b);
+}
+
+float multiplication(char input[])
+{
+    float a;
+    float b;
+
+    char* token = strtok (input, "*");
+    char* token2 = strtok (NULL, "*");
+
+    a = atof (token);
+    b = atof (token2);
+
+    printf("%.2f\n", a * b);
+}
+
+float division(char input[])
+{
+    float a;
+    float b;
+
+    char* token = strtok (input, "/");
+    char* token2 = strtok (NULL, "/");
+
+    a = atof (token);
+    b = atof (token2);
+
+
+
+    if (b == 0){
+        printf("Division by 0 is not allowed\n");
+    }
+        else{
+            printf("%.2f\n", a / b);
+        }
 }
