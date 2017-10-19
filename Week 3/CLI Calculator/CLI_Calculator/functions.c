@@ -17,6 +17,9 @@ float summition();
 float substraction();
 float multiplication();
 float division();
+float division_with_remainder();
+float squaring();
+float square_root();
 
 //Function for main menu begins//
 void main_menu() //Function for the main menu.
@@ -87,6 +90,18 @@ void sub_menu_and_ops() //Function for the sub menus.
         }
         else if (strstr(input, "/")) {
             division(input);
+            fflush(stdin);
+        }
+        else if (strstr(input, "^")) {
+            squaring(input);
+            fflush(stdin);
+        }
+        else if (strstr(input, "<")) {
+            square_root(input);
+            fflush(stdin);
+        }
+        else if (strstr(input, "%")) {
+            division_with_remainder(input);
             fflush(stdin);
         }
         else if (strstr(input, "-")) {
@@ -198,4 +213,46 @@ float division(char input[])
         else{
             printf("%.2f\n", a / b);
         }
+}
+
+float division_with_remainder(char input[])
+{
+
+    float a;
+    float b;
+
+    char* token = strtok (input, "%");
+    char* token2 = strtok (NULL, "%");
+
+    a = atof (token);
+    b = atof (token2);
+
+    printf("%.2f\n", fmod(a, b));
+}
+
+float squaring(char input[])
+{
+
+    float a;
+    float b;
+
+    char* token = strtok (input, "^");
+    char* token2 = strtok (NULL, "^");
+
+    a = atof (token);
+    b = atof (token2);
+
+    printf("%.2f\n", powf(a, b));
+}
+
+float square_root(char input[])
+{
+
+    float a;
+
+    char* token = strtok (input, "<");
+
+    a = atof (token);
+
+    printf("%.2f\n", sqrt(a));
 }
