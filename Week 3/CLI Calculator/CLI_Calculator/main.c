@@ -3,7 +3,6 @@
 #include <Windows.h>
 #include <math.h>
 #include <stdint.h>
-#include <conio.h>
 
 int main()
 {
