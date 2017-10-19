@@ -5,43 +5,28 @@
 #include <stdlib.h>
 #include <math.h>
 
-//char choise = 0;
-//char subMenu = 0;
 int xyz = "%";
-//char operator;
 char input[100] = "";
-//float firstNumber = 0;
-//float secondNumber = 0;
-//float result = 0;
 float summition();
-float substraction();
+float subtraction();
 float multiplication();
 float division();
 float division_with_remainder();
 float squaring();
 float square_root();
 
-//Function for main menu begins//
-void main_menu() //Function for the main menu.
+//Function for main menu begins.//
+void main_menu()
 {
-    char choise = 0;
     char input[50] = "";
-    char subMenu = 0;
     int a = "%";
 
     printf("\tCLI Calculator\n====================================\nusage: [number] [operation] [number]\nCommands:\n\n+  summation\n-  subtraction\n*  multiplication\n/  division\n%s  division with remainder\n^  squaring\n<  square root\n\nlog    logarithm\nbinto  binary to hex or dec\nhexto  hexadecimal to bin or dec\ndecto  decimal to bin or hex\n====================================\nexit   exiting from the program\nclear  clear the screen\nhelp   print usage\n====================================\n\n\tHit enter to start!\n\n====================================\n", xyz);
 
+
+
     while (getchar() != '\n');{
         clear();
-        if (strcmp(input, "exit") == 0){
-            exit(0);
-        }
-        if (strcmp(input, "help") == 0){
-            main_menu();
-        }
-        if (strcmp(input, "clear") == 0){
-            clear();
-        }
     }
 }
 //Function for main menu ends//
@@ -54,10 +39,10 @@ void set_cursor_pos(int x, int y)
 	coord.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
-//Function to coords ends//
+//Function to coords ends.//
 
-//Function to clear screen begins//
-void clear() //Function to clear the screen.
+//Function to clear screen begins.//
+void clear()
 {
 
     system("cls");
@@ -65,8 +50,8 @@ void clear() //Function to clear the screen.
 }
 //Function to clear screen ends//
 
-//Function for submenu begins//
-void sub_menu_and_ops() //Function for the sub menus.
+//Function for submenu and math ops begins.//
+void sub_menu_and_ops()
 {
     while (strcmp(input, "exit") != 0) {
         gets(input);
@@ -105,43 +90,14 @@ void sub_menu_and_ops() //Function for the sub menus.
             fflush(stdin);
         }
         else if (strstr(input, "-")) {
-            substraction(input);
+            subtraction(input);
             fflush(stdin);
         }
     }
 }
-//Function for submenu ends//
+//Function for submenu and math ops ends.//
 
-/*
-void operation_func()
-{
-
-    scanf("%f %c %f", &firstNumber, &operator, &secondNumber);
-
-    switch(operator){
-
-        case '+':
-            printf("= %.2f\n", firstNumber + secondNumber);
-            break;
-        default:
-            printf("Error");
-    }
-}
-/*
-void back_to_menu()
-
-{
-    if (strcmp(input, "clear") == 0) {
-        clear();
-    }
-    if (strcmp(input, "help") == 0) {
-        main_menu();
-    }
-    if (strcmp(input, "exit") == 0){
-        exit(0);
-    }
-}
-*/
+//Function for addition begins.//
 float summition(char (input[]))
 {
     float a;
@@ -155,8 +111,10 @@ float summition(char (input[]))
 
     printf("%.2f\n", a + b);
 }
+//Function for addition ends.//
 
-float substraction(char input[])
+//Function for subtraction ends.//
+float subtraction(char input[])
 {
     float a;
     float b;
@@ -179,7 +137,9 @@ float substraction(char input[])
 
     printf("%.2f\n", a - b);
 }
+//Function for subtraction ends.//
 
+//Function for multiplication begins.//
 float multiplication(char input[])
 {
     float a;
@@ -193,7 +153,9 @@ float multiplication(char input[])
 
     printf("%.2f\n", a * b);
 }
+//Function for multiplication ends.//
 
+//Function for division begins.//
 float division(char input[])
 {
     float a;
@@ -214,7 +176,10 @@ float division(char input[])
             printf("%.2f\n", a / b);
         }
 }
+//Function for division ends.//
 
+
+//Function for division with remainder begins.//
 float division_with_remainder(char input[])
 {
 
@@ -229,7 +194,9 @@ float division_with_remainder(char input[])
 
     printf("%.2f\n", fmod(a, b));
 }
+//Function for division with remainder ends.//
 
+//Function for squaring with remainder begins.//
 float squaring(char input[])
 {
 
@@ -244,7 +211,9 @@ float squaring(char input[])
 
     printf("%.2f\n", powf(a, b));
 }
+//Function for squaring with remainder ends.//
 
+//Function for square root with remainder begins.//
 float square_root(char input[])
 {
 
@@ -256,3 +225,4 @@ float square_root(char input[])
 
     printf("%.2f\n", sqrt(a));
 }
+//Function for square root with remainder ends.//
