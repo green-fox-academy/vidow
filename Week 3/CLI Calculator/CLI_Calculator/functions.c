@@ -59,13 +59,13 @@ void sub_menu_and_ops()
     while (strcmp(input, "exit") != 0) {
         gets(input);
 
-        if (strcmp(input, "exit") == 0){
+        if (strcmp(input, "exit") == 0) {
             exit(0);
         }
-        if (strcmp(input, "help") == 0){
+        if (strcmp(input, "help") == 0) {
             main_menu();
         }
-        if (strcmp(input, "clear") == 0){
+        if (strcmp(input, "clear") == 0) {
             clear();
         }
         //The function searches for " " value and if it finds
@@ -110,11 +110,11 @@ float summition(char (input[]))
     float a;
     float b;
     //Puts char value into token and token 2 until "+".//
-    char* token = strtok (input, "+");
-    char* token2 = strtok (NULL, "+");
+    char* token = strtok(input, "+");
+    char* token2 = strtok(NULL, "+");
 
-    a = atof (token);
-    b = atof (token2);
+    a = atof(token);
+    b = atof(token2);
 
     printf("%.2f\n", a + b);
 }
@@ -134,7 +134,7 @@ float subtraction(char input[])
     //For this we need if and else where if means "negating" the first "-"
     //while if means puts char value into token and token 2 until "-"
     if (input[0] == '-'){
-        token = strtok (input, " ");
+        token = strtok(input, " ");
         token_minus = strtok (NULL, " ");
         token2 = strtok (NULL, " ");
     }
@@ -213,11 +213,11 @@ float squaring(char input[])
     float a;
     float b;
     //Puts char value into token and token 2 until "^".//
-    char* token = strtok (input, "^");
-    char* token2 = strtok (NULL, "^");
+    char* token = strtok(input, "^");
+    char* token2 = strtok(NULL, "^");
 
-    a = atof (token);
-    b = atof (token2);
+    a = atof(token);
+    b = atof(token2);
 
     printf("%.2f\n", powf(a, b));
 }
