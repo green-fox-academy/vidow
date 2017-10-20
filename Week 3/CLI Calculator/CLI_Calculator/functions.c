@@ -15,7 +15,7 @@ float division_with_remainder();
 float squaring();
 float square_root();
 
-//Function for main menu begins.//
+//Function for main menu begins.
 
 void main_menu()
 {
@@ -28,9 +28,9 @@ void main_menu()
         clear();
     }
 }
-//Function for main menu ends//
+//Function for main menu ends
 
-//Function for coords begins//
+//Function for coords begins
 
 COORD coord = {0,0};
 void set_cursor_pos(int x, int y)
@@ -39,17 +39,17 @@ void set_cursor_pos(int x, int y)
 	coord.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
-//Function to coords ends.//
+//Function to coords ends.
 
-//Function to clear screen begins.//
+//Function to clear screen begins.
 
 void clear()
 {
     system("cls");
 }
-//Function to clear screen ends//
+//Function to clear screen ends
 
-//Function for choosing submenu options and math operators begins.//
+//Function for choosing submenu options and math operators begins.
 
 void sub_menu_and_ops()
 {
@@ -72,7 +72,7 @@ void sub_menu_and_ops()
         //loads the function from below
         //then clears the cache
         else if (strstr(input, "+")) {
-            summition(input);
+            summation(input);
             fflush(stdin);
         }
         else if (strstr(input, "*")) {
@@ -101,15 +101,15 @@ void sub_menu_and_ops()
         }
     }
 }
-//Function for submenu and math ops ends.//
+//Function for submenu and math ops ends.
 
-//Function for addition begins.//
+//Function for addition begins.
 
-float summition(char (input[]))
+float summation(char (input[]))
 {
     float a;
     float b;
-    //Puts char value into token and token 2 until "+".//
+    //Puts char value into token and token 2 until "+".
     char* token = strtok(input, "+");
     char* token2 = strtok(NULL, "+");
 
@@ -118,9 +118,9 @@ float summition(char (input[]))
 
     printf("%.2f\n", a + b);
 }
-//Function for addition ends.//
+//Function for addition ends.
 
-//Function for subtraction ends.//
+//Function for subtraction ends.
 
 float subtraction(char input[])
 {
@@ -135,49 +135,49 @@ float subtraction(char input[])
     //while if means puts char value into token and token 2 until "-"
     if (input[0] == '-'){
         token = strtok(input, " ");
-        token_minus = strtok (NULL, " ");
-        token2 = strtok (NULL, " ");
+        token_minus = strtok(NULL, " ");
+        token2 = strtok(NULL, " ");
     }
     else{
-        token = strtok (input, "-");
-        token2 = strtok (NULL, "-");
+        token = strtok(input, "-");
+        token2 = strtok(NULL, "-");
     }
-    a = atof (token);
-    b = atof (token2);
+    a = atof(token);
+    b = atof(token2);
 
     printf("%.2f\n", a - b);
 }
-//Function for subtraction ends.//
+//Function for subtraction ends.
 
-//Function for multiplication begins.//
+//Function for multiplication begins.
 
 float multiplication(char input[])
 {
     float a;
     float b;
-    //Puts char value into token and token 2 until "*".//
-    char* token = strtok (input, "*");
-    char* token2 = strtok (NULL, "*");
+    //Puts char value into token and token 2 until "*".
+    char* token = strtok(input, "*");
+    char* token2 = strtok(NULL, "*");
 
     a = atof (token);
     b = atof (token2);
 
     printf("%.2f\n", a * b);
 }
-//Function for multiplication ends.//
+//Function for multiplication ends.
 
-//Function for division begins.//
+//Function for division begins.
 
 float division(char input[])
 {
     float a;
     float b;
-    //Puts char value into token and token 2 until "/".//
-    char* token = strtok (input, "/");
-    char* token2 = strtok (NULL, "/");
+    //Puts char value into token and token 2 until "/".
+    char* token = strtok(input, "/");
+    char* token2 = strtok(NULL, "/");
 
-    a = atof (token);
-    b = atof (token2);
+    a = atof(token);
+    b = atof(token2);
     //Need an exepction, division by 0 is not allowed.
     if (b == 0){
         printf("Division by 0 is not allowed\n");
@@ -186,33 +186,33 @@ float division(char input[])
             printf("%.2f\n", a / b);
         }
 }
-//Function for division ends.//
+//Function for division ends.
 
 
-//Function for division with remainder begins.//
+//Function for division with remainder begins.
 
 float division_with_remainder(char input[])
 {
     float a;
     float b;
-    //Puts char value into token and token 2 until "%".//
-    char* token = strtok (input, "%");
-    char* token2 = strtok (NULL, "%");
+    //Puts char value into token and token 2 until "%".
+    char* token = strtok(input, "%");
+    char* token2 = strtok(NULL, "%");
 
-    a = atof (token);
-    b = atof (token2);
+    a = atof(token);
+    b = atof(token2);
 
     printf("%.2f\n", fmod(a, b));
 }
-//Function for division with remainder ends.//
+//Function for division with remainder ends.
 
-//Function for squaring with remainder begins.//
+//Function for squaring with remainder begins.
 
 float squaring(char input[])
 {
     float a;
     float b;
-    //Puts char value into token and token 2 until "^".//
+    //Puts char value into token and token 2 until "^".
     char* token = strtok(input, "^");
     char* token2 = strtok(NULL, "^");
 
@@ -221,19 +221,31 @@ float squaring(char input[])
 
     printf("%.2f\n", powf(a, b));
 }
-//Function for squaring with remainder ends.//
+//Function for squaring with remainder ends.
 
-//Function for square root with remainder begins.//
+//Function for square root with remainder begins.
 
 float square_root(char input[])
 {
     float a;
     //Puts char value into token and token 2 until "<".
-    //Only one variable is needed here
-    char* token = strtok (input, "<");
+    //Two variables are needed since square rooting
+    //negative number resulting - and + value of the number.
 
-    a = atof (token);
+    char* token = strtok(input, "<");
 
-    printf("%.2f\n", sqrt(a));
+    a = atof(token);
+    float b = 0;
+
+    if (a >= 0) {
+
+        printf("%.2f\n", sqrt(a));
+    }
+    if (a < 0){
+        b = a;
+        b = b * -1;
+        printf("Square rooting %.2f gives two results, -%.2f and +%.2f.\n", a, sqrt(b), sqrt(b));
+    }
 }
-//Function for square root with remainder ends.//
+
+//Function for square root with remainder ends.
