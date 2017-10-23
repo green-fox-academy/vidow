@@ -98,6 +98,9 @@ void sub_menu_and_ops()
         if (strstr(input, "binto")) {
             binto(input);
             fflush(stdin);
+        if (strstr(input, "hexto")) {
+            binto(input);
+            fflush(stdin);
         }
         else if (strstr(input, "-")) {
             subtraction(input);
@@ -279,3 +282,29 @@ void binto(char input[])
     } else
         printf(" Invalid input.");
 }
+//Function for binto ends.
+
+//Functions for hexto begins.
+
+void hexto(char input[])
+{
+    int a;
+    int b;
+
+    char* token = strtok (input, "hexto");
+    char* token2 = strtok ('\0', "hexto");
+
+    a = strtol (token, 0, 16);
+    b = atoi (token2);
+
+    if (b != 2 || b != 10) {
+        if (b == 2) {
+            printf(" = %s\n", ltoa (a, input, 2));
+        }
+        if (b == 10) {
+            printf(" = %s\n", ltoa (a, input, 10));
+        }
+    } else
+        printf(" Invalid input.");
+}
+//Function for hexto ends.
