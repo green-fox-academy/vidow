@@ -101,6 +101,9 @@ void sub_menu_and_ops()
         if (strstr(input, "hexto")) {
             binto(input);
             fflush(stdin);
+        if (strstr(input, "decto")) {
+            binto(input);
+            fflush(stdin);
         }
         else if (strstr(input, "-")) {
             subtraction(input);
@@ -308,3 +311,27 @@ void hexto(char input[])
         printf(" Invalid input.");
 }
 //Function for hexto ends.
+
+//Function for decto begins.
+
+void decto(char input[])
+{
+    int a;
+    int b;
+
+    char* token = strtok (input, "decto");
+    char* token2 = strtok ('\0', "decto");
+
+    a = atoi (token);
+    b = atoi (token2);
+
+    if (b != 2 || b != 16) {
+        if (b == 2) {
+            printf(" = %s\n", itoa (a, input, 2));
+        }
+        if (b == 16) {
+            printf(" = %s\n", itoa (a, input, 16));
+        }
+    } else
+        printf(" Invalid input.");
+}
