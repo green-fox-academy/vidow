@@ -249,3 +249,29 @@ float square_root(char input[])
 }
 
 //Function for square root with remainder ends.
+
+//Function for binto begins.
+
+void binto(char input[])
+{
+    int a;
+    int b;
+    int bin_to_check;
+
+    char* token = strtok (input, "binto");
+    char* token2 = strtok ('\0', "binto");
+
+    bin_to_check = atoi (token);
+    a = strtol (token, 0, 2);
+    b = atoi (token2);
+
+    if (bin_to_check % 10 == 0 || bin_to_check % 10 == 1) {
+        if (b == 10) {
+            printf(" = %s\n", ltoa (a, input, 10));
+        }
+        if (b == 16) {
+            printf(" = %s\n", ltoa (a, input, 16));
+        }
+    } else
+        printf(" Invalid input.");
+}
