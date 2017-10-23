@@ -95,6 +95,10 @@ void sub_menu_and_ops()
             division_with_remainder(input);
             fflush(stdin);
         }
+        if (strstr(input, "binto")) {
+            binto(input);
+            fflush(stdin);
+        }
         else if (strstr(input, "-")) {
             subtraction(input);
             fflush(stdin);
