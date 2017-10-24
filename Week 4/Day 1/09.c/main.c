@@ -3,10 +3,20 @@
 void safe_union(int *a, int l_a, int *b, int l_b, int *result, int l_res) {
     //TODO:
     // Implement this function to create the union of a and b into the array result!
+
+    int i = 0;
+    int j = 0;
+
+    for (i = 0; i < l_a; i++) {
+        result[i] = a[i];
+    }
+    for (j = 0; j < l_b; j++) {
+        result[i + j] = b[j];
+    }
     return;
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char* argv) {
     int a[3] = {1,2,3};
     int b[3] = {4,5,6};
     int c[6];
