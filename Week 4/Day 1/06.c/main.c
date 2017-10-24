@@ -12,9 +12,9 @@ int main() {
     // The "other_high_number_pointer" should point to the same memory address
     // without using the "&" operator.
 
-    other_high_number_pointer = *hight_number_pointer;
+    other_high_number_pointer = hight_number_pointer;
 
-    printf("Memory address of hight_number_pointer is %p\nMemory address of other_high_number_pointer is %p.\n", &hight_number_pointer, &other_high_number_pointer);
+    printf("Memory address of hight_number_pointer is %p\nMemory address of other_high_number_pointer is %p.\n", hight_number_pointer, other_high_number_pointer);
 
     return 0;
 }
