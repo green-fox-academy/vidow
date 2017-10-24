@@ -14,7 +14,7 @@ void reverse_name(char *name, char *reversed_name)
             break;
         }
     }
-    for (i = 0; i < strlen(name) - space_temp - 1; i++) {
+    for (i = 0; i < strlen(name) - space_temp; i++) {
         reversed_name[i] = name[space_temp + 1 + i];
     }
 
