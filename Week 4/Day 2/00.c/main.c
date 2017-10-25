@@ -27,8 +27,8 @@ int main() {
     // TODO:
     // Print out the size of both structs (use sizeof() function)
 
-    struct Bitfield BF;
-    struct NotBitfield NBF;
+    struct Bitfield BF; //It can be defined also as BF as in line 13.
+    struct NotBitfield NBF; //It can be defined also as NBF as in line 24.
 
     printf("%d\n", sizeof(BF));
     printf("%d\n", sizeof(NBF));
