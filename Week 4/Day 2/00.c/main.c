@@ -10,7 +10,7 @@ struct Bitfield{
     uint8_t boolean_value_6:1;
     uint8_t boolean_value_7:1;
     uint8_t boolean_value_8:1;
-};
+} BF;
 
 struct NotBitfield{
     uint8_t boolean_value_1;
@@ -21,11 +21,17 @@ struct NotBitfield{
     uint8_t boolean_value_6;
     uint8_t boolean_value_7;
     uint8_t boolean_value_8;
-};
+} NBF;
 
 int main() {
     // TODO:
     // Print out the size of both structs (use sizeof() function)
+
+    struct Bitfield BF;
+    struct NotBitfield NBF;
+
+    printf("%d\n", sizeof(BF));
+    printf("%d\n", sizeof(NBF));
 
     return 0;
 }
