@@ -20,7 +20,6 @@ void commands(store *input);
 int main()
 {
 
-
     main_menu();
 
     commands(todos);
@@ -64,8 +63,11 @@ void commands(store *input)
         if (strcmp(getinput, "-wr") == 0) {
             writer(todos);
         }
-        if (strcmp(getinput, "-rd") == 0) {
+        if (strcmp(getinput, "-l") == 0) {
             lister(todos);
+        }
+        if (strcmp(getinput, "-rd") == 0) {
+            reader(todos);
         }
         if (strcmp(getinput, "exit") == 0) {
             exit(0);
@@ -94,17 +96,26 @@ void writer(store *input)
 
 void lister(store *input)
 {
+    printf("List by number\n"
+               "===================\n"
+               "Num\t|\tTasks\n\n");
+
+    for (int i = 0; i < task_num; i++) {
+
+        printf("%d\t-\t%s\n", task_num, input[i].task);
+    }
+}
+
+void reader(store *input)
+{
     FILE *fp;
 
     fp = fopen("todos.txt", "r");
 
-    while (fgets(input[task_num].task, 100, fp) != NULL) {
+    while (fgets(input[task_num++].task, 100, fp) != NULL) {
 
-//        for (int i = 0; i < task_num; i++) {
 
-        }
-        printf("%s", input[task_num].task);
- //   }
+    }
+
     fclose(fp);
-
 }
