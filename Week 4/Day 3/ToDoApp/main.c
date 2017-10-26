@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 int task_num = 0;
-char buffer[500];
+char buffer[100];
 char getinput[100];
 
 typedef struct store {
@@ -15,7 +15,7 @@ typedef struct store {
 
 store todos[100];
 
-void commands(store *input, char *buffer);
+void commands(store *input);
 
 int main()
 {
@@ -23,7 +23,7 @@ int main()
 
     main_menu();
 
-    commands(todos, buffer);
+    commands(todos);
 
     writer(todos);
 
@@ -50,7 +50,7 @@ void main_menu()
     }
 }
 //Function for the commands in main menu.
-void commands(store *input, char *buffer)
+void commands(store *input)
 {
 
     while (strcmp(getinput, "exit") != 0) {
@@ -59,7 +59,6 @@ void commands(store *input, char *buffer)
         if (strcmp(getinput, "-a") == 0) {
             printf("Please add a new task: \n");
             gets(input[task_num].task);
-//            strcpy(input[task_num].task, buffer);
             task_num++;
         }
         if (strcmp(getinput, "-wr") == 0) {
@@ -98,8 +97,14 @@ void lister(store *input)
     FILE *fp;
 
     fp = fopen("todos.txt", "r");
-    printf("Tasks: %s\n", input[task_num].task);
 
+    while (fgets(input[task_num].task, 100, fp) != NULL) {
+
+//        for (int i = 0; i < task_num; i++) {
+
+        }
+        printf("%s", input[task_num].task);
+ //   }
     fclose(fp);
 
 }
