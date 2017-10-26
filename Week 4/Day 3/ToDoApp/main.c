@@ -13,11 +13,13 @@ typedef struct store {
 
 }store;
 
+store todos[100];
+
 void commands(store *input, char *buffer);
 
 int main()
 {
-    store todos[100];
+
 
     main_menu();
 
@@ -51,16 +53,22 @@ void main_menu()
 void commands(store *input, char *buffer)
 {
 
-    while (strcmp(input, "exit") != 0) {
+    while (strcmp(getinput, "exit") != 0) {
         gets(getinput);
-//    }
+
         if (strcmp(getinput, "-a") == 0) {
             printf("Please add a new task: \n");
             gets(input[task_num].task);
 //            strcpy(input[task_num].task, buffer);
             task_num++;
         }
-        if (strcmp(input, "save and exit") == 0) {
+        if (strcmp(getinput, "-wr") == 0) {
+            writer(todos);
+        }
+        if (strcmp(getinput, "-rd") == 0) {
+            lister(todos);
+        }
+        if (strcmp(getinput, "exit") == 0) {
             exit(0);
         }
     }
@@ -85,3 +93,13 @@ void writer(store *input)
     fclose(fp);
 }
 
+void lister(store *input)
+{
+    FILE *fp;
+
+    fp = fopen("todos.txt", "r");
+    printf("Tasks: %s\n", input[task_num].task);
+
+    fclose(fp);
+
+}
