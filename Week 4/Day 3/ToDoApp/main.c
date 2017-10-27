@@ -69,6 +69,9 @@ void commands(store *input)
         if (strcmp(getinput, "-rd") == 0) {
             reader(todos);
         }
+        if (strcmp(getinput, "-e") == 0) {
+            empty_list(input);
+        }
         if (strcmp(getinput, "exit") == 0) {
             exit(0);
         }
@@ -114,8 +117,23 @@ void reader(store *input)
 
     while (fgets(input[task_num++].task, 100, fp) != NULL) {
 
-
     }
 
     fclose(fp);
+}
+
+void empty_list (store *input)
+{
+/*
+    memset(input[task_num].task, '\0', sizeof(input[task_num].task));
+*/
+    for (int i = 0; i < task_num; i++) {
+        for (int j = 0; i < task_num; j--) {
+
+        task_num--;
+
+        }
+        memset(input[i].task, NULL, sizeof(input[i].task));
+    }
+
 }
