@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 int task_num = 0;
-char buffer[100];
+//char buffer[100];
 char getinput[100];
 
 typedef struct store {
@@ -10,6 +11,7 @@ typedef struct store {
     char task[100];
     unsigned char prio;
     unsigned char checked;
+    unsigned int num_que;
 
 }store;
 
@@ -59,6 +61,7 @@ void commands(store *input)
             printf("Please add a new task: \n");
             gets(input[task_num].task);
             task_num++;
+            input[task_num].num_que++;
         }
         if (strcmp(getinput, "-wr") == 0) {
             writer(todos);
@@ -105,7 +108,7 @@ void lister(store *input)
 
     for (int i = 0; i < task_num; i++) {
 
-        printf("%d\t-\t%s\n", task_num, input[i].task);
+        printf("%d\t-\t%s\n", input[i].num_que + 1, input[i].task);
     }
 }
 
@@ -116,24 +119,17 @@ void reader(store *input)
     fp = fopen("todos.txt", "r");
 
     while (fgets(input[task_num++].task, 100, fp) != NULL) {
-
     }
-
     fclose(fp);
 }
 
 void empty_list (store *input)
 {
-/*
-    memset(input[task_num].task, '\0', sizeof(input[task_num].task));
-*/
     for (int i = 0; i < task_num; i++) {
         for (int j = 0; i < task_num; j--) {
 
         task_num--;
-
         }
         memset(input[i].task, NULL, sizeof(input[i].task));
     }
-
 }
