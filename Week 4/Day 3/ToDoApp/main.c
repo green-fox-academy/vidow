@@ -3,6 +3,7 @@
 #include <string.h>
 
 int task_num = 0;
+int buffer_num = 0;
 //char buffer[100];
 char getinput[100];
 
@@ -75,6 +76,9 @@ void commands(store *input)
         if (strcmp(getinput, "-e") == 0) {
             empty_list(input);
         }
+        if (strcmp(getinput, "-rm") == 0) {
+            remover(input);
+        }
         if (strcmp(getinput, "exit") == 0) {
             exit(0);
         }
@@ -108,7 +112,7 @@ void lister(store *input)
 
     for (int i = 0; i < task_num; i++) {
 
-        printf("%d\t-\t%s\n", input[i].num_que + 1, input[i].task);
+        printf("%d\t\t%s\n", input[i].num_que + 1, input[i].task);
     }
 }
 
@@ -123,13 +127,21 @@ void reader(store *input)
     fclose(fp);
 }
 
-void empty_list (store *input)
+void empty_list(store *input)
 {
     for (int i = 0; i < task_num; i++) {
         for (int j = 0; i < task_num; j--) {
-
         task_num--;
         }
         memset(input[i].task, NULL, sizeof(input[i].task));
     }
+}
+
+void remover(store *input)
+{
+    printf("Please add the number of task to remove: \n");
+    gets(&buffer_num);
+    task_num--;
+    memset(input[task_num].num_que, NULL, sizeof(input[task_num].num_que));
+
 }
