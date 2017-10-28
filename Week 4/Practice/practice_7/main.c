@@ -81,23 +81,26 @@ int sum_full_array (int *numbers, int *n)
 float sum_divis_array (int *numbers, int *n)
 
 {
-    int sum = 0;
-    int counter = 0;
-    float average = 0;
 
+    //Needed 3 variables to have everything working:
+    int sum = 0; //To sum the elements in the array.
+    int counter = 0; //To count the "steps".
+    float average = 0;//To have the variable which we need at the end.
+
+    //Loop to load the numbers to "numbers" array.
     for (int i = 0; i <= n; i++) {
 
         numbers[i] = i;
 
-
+    //Statment to find the numbers division by 4.
     if (numbers[i] % 4 == 0) {
 
         for (int i = 1; i <= n; i++) {
 
             counter++;
-
+            //Sum of the numbers above.
             sum = sum + numbers[i];
-
+            //Getting the average of sum and counter.
             average = sum / counter;
         }
     }
