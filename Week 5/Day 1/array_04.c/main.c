@@ -37,5 +37,11 @@ int main()
     p_words[7] = &word7;
     p_words[8] = &word8;
 
+    for (int i = 0; i < 9; i++) {
+
+        printf("%s\n", p_words[i]);
+
+    }
+
     return 0;
 }
