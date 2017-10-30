@@ -26,16 +26,14 @@ int main()
 
      }
     //For loop to set the first and last element of numbers2 array to value of "a" which is 42.
-    for (int i = numbers1[i]; i < lenght2; i++) {
+    for (int i = 0; i < lenght2; i++) {
 
         numbers2[0] = a;
         numbers2[6] = a;
 
-    printf("%d\n", numbers2[i]);
+        printf("%d\n", numbers2[i]);
 
     }
-
-
 
     return 0;
 }
