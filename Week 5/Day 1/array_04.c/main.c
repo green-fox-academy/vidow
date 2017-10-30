@@ -24,6 +24,7 @@ int main()
     char word6[] = "the";
     char word7[] = "Lazy";
     char word8[] = "Fox";
+    char word9[] = "";
 
     char *p_words[9];
 
@@ -42,16 +43,23 @@ int main()
         printf("%s\n", p_words[i]);
     }
 
+    printf("\n");
 
     p_words[0] = word8;
     p_words[1] = "is";
     p_words[2] = "Green";
     p_words[3] = "and";
-    p_words[4] = word4;
-    p_words[5] = word5;
-    p_words[6] = word0;
-    p_words[7] = word7;
-    p_words[8] = word3;
+    p_words[4] = "he";
+    p_words[5] = word4;
+    p_words[6] = word5;
+    p_words[7] = word0;
+    p_words[8] = word7;
+    p_words[9] = word3;
+
+    for (int i = 0; i < 10; i++) {
+
+        printf("%s\n", p_words[i]);
+    }
 
     return 0;
 }
