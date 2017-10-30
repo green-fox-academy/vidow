@@ -4,12 +4,12 @@
 /*
  * Create 9 arrays of characters, each should contain a word.
  * Let it be this: The Quick brown Dog jumps over the Lazy Fox.
- * Create an array of 9 pointers of chractrer type.
+ * Create an array of 9 pointers of character type.
  * Make it so, that each pointer points to one of the words. Meaning to one of the original arrays You just created.
  * So You'll have a pointer pointing to each of these original arrays in an array of pointers.
  * Print them out, each in a new line using this array of pointers.
  * Now make it so, that the Fox is Green and he jumps over the lazy dog.
- * Use the existing arrays to achive this.
+ * Use the existing arrays to achieve this.
  * Print it out again.
  */
 
@@ -40,8 +40,18 @@ int main()
     for (int i = 0; i < 9; i++) {
 
         printf("%s\n", p_words[i]);
-
     }
+
+
+    p_words[0] = word8;
+    p_words[1] = "is";
+    p_words[2] = "Green";
+    p_words[3] = "and";
+    p_words[4] = word4;
+    p_words[5] = word5;
+    p_words[6] = word0;
+    p_words[7] = word7;
+    p_words[8] = word3;
 
     return 0;
 }
