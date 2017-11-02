@@ -1,0 +1,89 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct Pirate {
+    char name[256];
+    int has_wooden_leg;
+    short int gold_count;
+}BlackFlag;
+
+// TODO:
+// Create a function that takes an array of pirates (and it's length) then returns the sum of the golds of all pirates
+
+// TODO:
+// Create a function that takes an array of pirates (and it's length) then returns the average of the gold / pirate
+
+// TODO:
+// Create a function that takes an array of pirates (and it's length) then returns the name of the
+// richest that has wooden leg
+
+int gold_counter(BlackFlag *pirates, int len);
+float avg_gold(BlackFlag *pirates, int len);
+char *richManwithWoodenLeg (BlackFlag *pirates, int len);
+
+int main() {
+    BlackFlag pirates[] = {
+        {"Jack", 0, 18},
+        {"Uwe", 1, 8},
+        {"Hook", 1, 12},
+        {"Halloween kid", 0, 0},
+        {"Sea Wolf", 1, 14},
+        {"Morgan", 0, 1}
+    };
+
+    int len = sizeof(pirates) / sizeof(BlackFlag);
+
+    printf("%d\n", gold_counter(pirates, len));
+    printf("%.2f\n", avg_gold(pirates, len));
+    printf("%s\n", richManwithWoodenLeg(pirates, len));
+
+
+
+    return 0;
+}
+
+int gold_counter(BlackFlag *pirates, int len)
+{
+    int count = 0;
+
+    for (int i = 0; i < len; i++) {
+
+        count += pirates[i].gold_count;
+
+    }
+
+    return count;
+
+}
+
+float avg_gold(BlackFlag *pirates, int len)
+{
+
+    int count = 0;
+    float avg = 0;
+
+    for (int i = 0; i < 6; i++) {
+
+        count += pirates[i].gold_count;
+    }
+
+    avg = (float)count / 6;
+
+    return avg;
+
+}
+
+char *richManwithWoodenLeg(BlackFlag *pirates, int len)
+{
+
+    static BlackFlag richManwithWoodenLeg = {" ", 0, 0};
+
+    for (int i = 0; i < len; i++) {
+
+        if (pirates[i].gold_count > richManwithWoodenLeg.gold_count && pirates[i].has_wooden_leg == 1)
+
+             richManwithWoodenLeg = pirates[i];
+    }
+
+    return richManwithWoodenLeg.name;
+}
