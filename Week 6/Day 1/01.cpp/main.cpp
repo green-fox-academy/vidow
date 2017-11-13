@@ -17,9 +17,9 @@ int main()
     string classmate_2 = "Mary";
     string classmate_3 = "Joe";
 
-    cout << "Hello " << classmate_1 << "!" << endl;
-    cout << "Hello " << classmate_2 << "!" << endl;
-    cout << "Hello " << classmate_3 << "!" << endl;
+    cout << "Hello, " << classmate_1 << "!" << endl;
+    cout << "Hello, " << classmate_2 << "!" << endl;
+    cout << "Hello, " << classmate_3 << "!" << endl;
 
     return 0;
 }
