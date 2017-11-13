@@ -17,7 +17,19 @@ using namespace std;
 int main()
 {
 
+    string MyName = "Norbert Szucs";
+    int MyAge = 31;
+    bool Coffee = false;
 
+    cout << MyName << endl;
+    cout << MyAge << endl;
+
+    if (Coffee) {
+        cout << "Likes coffee: true" << endl;
+    }
+    else{
+        cout << "Likes coffee: false" << endl;
+    }
 
     return 0;
 }
