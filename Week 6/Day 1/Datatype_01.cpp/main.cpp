@@ -14,9 +14,13 @@ using namespace std;
 
 int main()
 {
-    int avg_coding = ((7 * 17) - (17 * 2)) * 6;
+    int avg_coding_total = ((7 * 17) - (17 * 2)) * 6; //or (5 * 17) * 6 //510
+    int total_work_hours = 52 * 17; //884
+    float prctg_coding = (100.00 / total_work_hours) * avg_coding_total;
 
-    cout << "A Green Fox attendee codes " << avg_coding << " hours during a semester which is 85 working days." << endl;
+    cout << "A Green Fox attendee codes " << avg_coding_total << " hours during a semester which is 85 working days." << endl;
+    cout << "The % of coding hours in the semester if the average work hours weekly is 52 is " << prctg_coding << endl;
+
 
     return 0;
 }
