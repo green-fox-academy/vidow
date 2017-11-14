@@ -41,6 +41,12 @@
 *.depend
 *.txt
 *.raw
+*.cpp.save
+*.cpp.cbp
+*.cpp.cbp.save
+*.cpp.depend
+*.h.save
+*.main.cpp.save
 
 
 # make and build files
