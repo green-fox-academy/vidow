@@ -14,6 +14,7 @@ public:
         return this->counter;
     }
     void drink_rum(){
+        counter++;
     }
     void hows_goin_mate(){
         if (counter >= 5) {
@@ -40,10 +41,12 @@ int main() {
 
     Pirate po(0);
 
-    while (po.get_counter() < 3){
-        po.drink_rum();
-        po.counter_inc();
-    }
+    po.drink_rum();
+    po.drink_rum();
+    po.drink_rum();
+    po.drink_rum();
+    po.drink_rum();
+
     po.hows_goin_mate();
 
   return 0;
