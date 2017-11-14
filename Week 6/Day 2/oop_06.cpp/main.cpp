@@ -1,26 +1,8 @@
 #include <iostream>
 #include <string>
+#include "oop_06.h"
 
 using namespace std;
-
-class Car {
-private:
-    string type;
-    unsigned int km;
-public:
-    Car(string type, unsigned int km){
-        this->type = type;
-        this->km = km;
-    }
-    ~Car(){
-        cout << "Car--" << endl;
-    }
-    unsigned int run(){
-        km = km * 5;
-        return this->km;
-    }
-
-};
 
 int main() {
     // Create a class called "Car"
