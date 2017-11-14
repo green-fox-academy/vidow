@@ -1,34 +1,8 @@
 #include <iostream>
 #include <string>
+#include "oop.07.h"
 
 using namespace std;
-
-class Pirate{
-private:
-    unsigned int counter;
-public:
-    Pirate(unsigned int counter){
-        this->counter = counter;
-    }
-    unsigned int get_counter(){
-        return this->counter;
-    }
-    void drink_rum(){
-        counter++;
-    }
-    void hows_goin_mate(){
-        if (counter >= 5) {
-            cout << "Arrrr!" << endl;
-        }
-        else{
-            cout << "Nothin'" << endl;
-        }
-    }
-    unsigned int counter_inc(){
-        counter++;
-        return this->counter;
-    }
-};
 
 int main() {
     // create a pirate class
