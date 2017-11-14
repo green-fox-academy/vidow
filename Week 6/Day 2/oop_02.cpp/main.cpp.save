@@ -1,0 +1,27 @@
+#include <iostream>
+#include <string>
+#include "oop_02.h"
+
+using namespace std;
+
+class Student {
+public:
+    string name;
+    unsigned int age;
+    Student(string name, unsigned int age);
+    ~Student();
+    }
+    void printer(){
+        cout << name << " is " << age << " years old." << endl;
+    }
+};
+
+int main() {
+  // Create a new instace of the Student class and set it's name to "John" and
+  // it's age to 21 with it's constructor
+
+    Student so(21, "John");
+    so.printer();
+
+  return 0;
+}
