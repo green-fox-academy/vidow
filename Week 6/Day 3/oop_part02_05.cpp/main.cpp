@@ -4,7 +4,7 @@
 using namespace std;
 
 // Create a Car class.
-// Create the following private variables : age, kms_runed, manufacturer, number_of_seats
+// Create the following protected variables : age, kms_runed, manufacturer, number_of_seats
 // use proper variable types.
 // Implement a method which has one parameter, and increases the kms_runed variable by its parameter value.
 // Implement a method which can add a person to a car, if the number of persons in the car reached
@@ -12,7 +12,7 @@ using namespace std;
 // Inherit at least two car models and try out the methods you have created.
 
 class Car{
- private:
+ protected:
      unsigned int age;
      unsigned int kms_ran;
      string manufacturer;
@@ -37,13 +37,6 @@ class Car{
     }
 };
 class Tesla: public Car{
- private:
-     unsigned int age;
-     unsigned int kms_ran;
-     string manufacturer;
-     unsigned int number_of_seats;
-     unsigned int add_km;
-     unsigned int person;
  public:
     Tesla(unsigned int add_km, unsigned int person):Car(add_km, person){
         this->add_km = add_km;
@@ -62,13 +55,7 @@ class Tesla: public Car{
     }
 };
 class Rimac: public Car{
- private:
-     unsigned int age;
-     unsigned int kms_ran;
-     string manufacturer;
-     unsigned int number_of_seats;
-     unsigned int add_km;
-     unsigned int person;
+
 public:
     Rimac(unsigned int add_km, unsigned int person):Car(add_km, person){
         this->add_km = add_km;
