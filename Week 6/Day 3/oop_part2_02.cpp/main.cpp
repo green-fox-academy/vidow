@@ -25,7 +25,7 @@ class Circle: public Shape{
          return this->area = 3.14 * (radius * radius);
      }
      void print_data(){
-         cout << "If a circle's radius is " << radius << " then the area is " << endl;
+         cout << "If a circle's radius is " << radius << " then the area is " << calc_area() << endl;
      }
 };
 class Triangle: public Shape{
@@ -42,7 +42,7 @@ class Triangle: public Shape{
          return this->area = 0.5 * h * b;
      }
      void print_data(){
-        cout << "If a triangle's h is " << h << " and the base is " << b << " then the area is " << endl;
+        cout << "If a triangle's h is " << h << " and the base is " << b << " then the area is " << calc_area() << endl;
      }
 };
 
@@ -50,12 +50,9 @@ int main()
 {
     Circle co(20.1);
     co.print_data();
-    cout << co.calc_area() << endl;
 
     Triangle to(20, 10.1);
-
     to.print_data();
-    cout << to.calc_area() << endl;
 
     return 0;
 }
