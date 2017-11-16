@@ -52,6 +52,10 @@ class ToDoApp{
             if(getinput == "-rm") {
                 remove_task();
             }
+            if(getinput == "-c") {
+                cout << "Please enter the number of the task you want to be checked: " << endl;
+                cin >> get_number;
+            }
         }
     }
     void new_task(){
@@ -63,9 +67,9 @@ class ToDoApp{
     void listing(){
         cout <<"List by number\n"
         "===================\n"
-        "Num\t|\tTasks\n" << endl;
+        "Num | Tasks | Prio\n" << endl;
         for (int i = 0; i < v_input.size(); i++) {
-            cout << i + 1 << "\t\t" << v_input[i] << endl;
+            cout << i + 1 << " - [ ] " << v_input[i] << endl;
         }
     }
     void empty_list(){
@@ -82,7 +86,6 @@ class ToDoApp{
 
 int main()
 {
-
     ToDoApp to;
 
     to.main_menu();
