@@ -15,7 +15,6 @@ class ToDoApp{
     vector<string> commands;
     int task_num;
     int get_number;
-    int buffer_num[10];
 
     void main_menu(){
         cout << "           Todo application\n"
@@ -42,27 +41,42 @@ class ToDoApp{
             cin >> getinput;
 
             if(getinput == "-a") {
-                cout << "Please add a new task: " << endl;
-                cin >> getinput;
-                v_input.push_back(getinput);
-                task_num++;
+                new_task();
             }
             if(getinput == "-l") {
-                for (int i = 0; i < v_input.size(); i++) {
-                    cout << i + 1 << "\t" << v_input[i] << endl;
-                }
+                listing();
             }
             if(getinput == "-e") {
-                v_input.clear();
-                task_num = 0;
+                empty_list();
             }
             if(getinput == "-rm") {
-                cout << "Please enter the number of the task you want to remove: " << endl;
-                cin >> get_number;
-                v_input.erase(v_input.begin() + get_number - 1);
-                task_num--;
+                remove_task();
             }
         }
+    }
+    void new_task(){
+        cout << "Please add a new task: " << endl;
+        cin >> getinput;
+        v_input.push_back(getinput);
+        task_num++;
+    }
+    void listing(){
+        cout <<"List by number\n"
+        "===================\n"
+        "Num\t|\tTasks\n" << endl;
+        for (int i = 0; i < v_input.size(); i++) {
+            cout << i + 1 << "\t\t" << v_input[i] << endl;
+        }
+    }
+    void empty_list(){
+        v_input.clear();
+        task_num = 0;
+    }
+    void remove_task(){
+        cout << "Please enter the number of the task you want to remove: " << endl;
+        cin >> get_number;
+        v_input.erase(v_input.begin() + get_number - 1);
+        task_num--;
     }
 };
 
