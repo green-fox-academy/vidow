@@ -12,7 +12,7 @@ using namespace std;
 
 int _div(int _a, int _b){
     if (_b == 0){
-        throw "x";
+        throw runtime_error("x");
     }
     return _a / _b;
 }
@@ -27,10 +27,9 @@ int main() {
     try {
         cout << _div(a, b) << endl;
     }
-    catch(const char *msg){
-            cout << msg << endl;
+    catch(runtime_error &err){
+            cout << err.what() << endl;
     }
-
 
 	return 0;
 }
