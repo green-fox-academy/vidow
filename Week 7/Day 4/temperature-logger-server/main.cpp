@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <stdlib.h>
+#include <conio.h>
 
 #include "SerialPortWrapper.h"
 
@@ -9,7 +10,7 @@ using namespace std;
 
 int main()
 {
-
+                int a = 0;
     string getinput;
     vector<string> log;
     vector<string> ports = SerialPortWrapper::listAvailablePorts();
@@ -76,10 +77,13 @@ int main()
                     while(1){
                         serial->readLineFromPort(&line);
                         if (line.length() > 0){
-                            for (int i = 0; i < log.size(); i++){
-                                log.at(i) = line;
-                            }
+                        log.push_back(line);
                         cout << line << endl;
+                        }
+                        if(_kbhit()) {
+                            if (_getch() == 's'){
+                                break;
+                            }
                         }
                     }
                 }
@@ -92,14 +96,10 @@ int main()
                 }
 
                 if(getinput == "l"){
-                    while(1){
-                        serial->readLineFromPort(&line);
-                        if (line.length() > 0){
-                        cout << line << endl;
-                        }
-                    }
+                for (unsigned int i = 0; i < log.size(); i++) {
+                cout << log.at(i) << endl;
                 }
-
+                }
                 if(getinput == "e"){
                     exit(0);
                 }
