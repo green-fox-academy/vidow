@@ -42,6 +42,8 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="rs232/rs232.h" />
+		<Unit filename="util.cpp" />
+		<Unit filename="util.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
