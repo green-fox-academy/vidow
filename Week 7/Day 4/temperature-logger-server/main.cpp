@@ -27,9 +27,9 @@ temperature_record parseString(string _line) {
 	istringstream lineStream(_line);
 	tm parsedDateTime;
 	lineStream >> get_time(&parsedDateTime, "%Y.%m.%d %H:%M:%S") >> temperature;
-	if (lineStream.fail()) {
-		throw "Invalid string format!";
-	}
+//	if (lineStream.fail()) {
+//		throw "Invalid string format!";
+//	}
 
 
 	if (-273 > temperature || 1000 < temperature) {
