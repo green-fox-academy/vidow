@@ -63,6 +63,14 @@ static void CPU_CACHE_Enable(void);
   * @param  None
   * @retval None
   */
+
+void Blinker(int _time){
+
+	BSP_LED_Toggle(LED_GREEN);
+	HAL_Delay(_time);
+//	BSP_LED_Off(LED_GREEN);
+}
+
 int main(void)
 {
   /* This project template calls firstly two functions in order to configure MPU feature 
@@ -96,26 +104,56 @@ int main(void)
   /* Add your application code here     */
 
   BSP_LED_Init(LED_GREEN);
+  BSP_LED_On(LED_GREEN);
+  HAL_Delay(2000);
+  BSP_LED_Off(LED_GREEN);
   BSP_PB_Init(BUTTON_WAKEUP, BUTTON_MODE_GPIO);
+
+
 
   /* Infinite loop */
   while (1)
   {
+//    While the button is pressed, the led is blinking every 0.2 sec.
+//	  if (BSP_PB_GetState(BUTTON_WAKEUP)){
+//
+//		  BSP_LED_Toggle(LED_GREEN);
+//		  HAL_Delay(200);
+//	  }
+//	  else {
+//		  BSP_LED_Off(LED_GREEN);
+//	  }
+
+//	  While the button is pressed, the led is blinking every 0.2 sec.
+//	  if (BSP_PB_GetState(BUTTON_WAKEUP)){
+//
+//		  BSP_LED_Toggle(LED_GREEN);
+//		  HAL_Delay(200);
+//	  }
+//	  else {
+//		  BSP_LED_Off(LED_GREEN);
+//	  }
+//
+//	  if ((BSP_PB_GetState(BUTTON_WAKEUP))){
+//		   	   BSP_LED_Off(LED_GREEN);
+//	  }
+
+//    If the button is pressed, the led blinks every 1 sec, else it blinks every 0.2 sec.
 
 	  if (BSP_PB_GetState(BUTTON_WAKEUP)){
-		  BSP_LED_On(LED_GREEN);
-	  }
-	  else {
-		  BSP_LED_Off(LED_GREEN);
+
+		  Blinker(1000);
 	  }
 
+	  else{
 
-  }
+		  Blinker(200);
+	  }
 
 
 	  //TODO:
 	  //Write a simple program witch flashes(toggle) the led when the button is pressed
-
+  }
 }
 
 /**
