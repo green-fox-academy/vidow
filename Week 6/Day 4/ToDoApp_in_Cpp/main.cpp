@@ -12,7 +12,6 @@ class ToDoApp{
  public:
     string getinput;
     vector<string> v_input;
-    vector<string> commands;
     int task_num;
     int get_number;
 
@@ -64,7 +63,7 @@ class ToDoApp{
         v_input.push_back(getinput);
         task_num++;
     }
-    void listing(){
+    void listing(){"
         cout <<"List by number\n"
         "===================\n"
         "Num | Tasks | Prio\n" << endl;

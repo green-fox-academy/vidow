@@ -10,11 +10,11 @@ using namespace std;
 // Throw an char in the try block
 // Catch it in the catch block and write it out.
 
-int _div(int _a, int _b){
+float _div(int _a, int _b){
     if (_b == 0){
         throw runtime_error("x");
     }
-    return _a / _b;
+    return ((float)_a / (float)_b);
 }
 
 int main() {

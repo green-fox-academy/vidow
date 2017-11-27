@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1507577947 source:c:\users\macbook\desktop\c_projects\week 2\day 1\double.c\main.c
+1507578005 source:c:\users\macbook\desktop\c_projects\week 2\day 1\double.c\main.c
 	<stdio.h>
 	<stdlib.h>
 	"double.h"

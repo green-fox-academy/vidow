@@ -16,7 +16,7 @@ void safe_union(int *a, int l_a, int *b, int l_b, int *result, int l_res) {
     return;
 }
 
-int main(int argc, char* argv) {
+int main(int argc, char** argv) {
     int a[3] = {1,2,3};
     int b[3] = {4,5,6};
     int c[6];

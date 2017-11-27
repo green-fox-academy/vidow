@@ -1,12 +1,16 @@
 #include <iostream>
 #include <string>
+#include "oop_08.h"
 
 using namespace std;
 
 class Student {
-  public:
+public:
     string name;
     unsigned int age;
+    ~Student(){
+        cout << "End of story" << endl;
+    }
 };
 
 int main() {

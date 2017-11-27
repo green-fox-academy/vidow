@@ -13,7 +13,7 @@ int main() {
 
     struct Computer PC = {3.2, 8, 32, "Radeon R8"};
 
-    PC.bits = 64;
+    PC.bits = PC.bits * 10;
     PC.ram_size_GB = 16;
 //    PC.VGA[50] = "GeForce 1080i";
     strcpy(PC.VGA, "GeForce 1080i"); //In case of changing a string, string copy is needed.

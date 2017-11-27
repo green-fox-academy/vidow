@@ -43,7 +43,6 @@ int multi_table(){
     catch(runtime_error &err){
         cout << err.what() << endl;
     }
-
 }
 
 int main() {

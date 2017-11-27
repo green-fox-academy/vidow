@@ -55,12 +55,12 @@ void how_many_houses_worth_to_buy(house Myhouses[], int len)
         }
     }
 
-    printf("It is worth to buy %d house(s)\n", counter);
+    printf("It is worth to buy %d house(s).\n", counter);
 }
 
 int main() {
 
-    house Myhouse = {"Falling street 40", 40000, 5, 100};
+    house Myhouse = {"Falling street 40", 4, 5, 100};
     house WeekendHouse = {"Elm street 20", 50, 10, 500};
     house OldHouse = {"Leaf street 2", 13, 3, 400};
     house NewHouse = {"Cheer street 123", 1000, 4, 250};
@@ -72,7 +72,6 @@ int main() {
 
     worth_to_buy(Myhouse);
     how_many_houses_worth_to_buy(Myhouses, len);
-
 
     return 0;
 }

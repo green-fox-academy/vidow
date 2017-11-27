@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 class Pirate{
 private:
     unsigned int counter;

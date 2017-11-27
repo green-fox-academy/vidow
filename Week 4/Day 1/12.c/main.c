@@ -12,7 +12,7 @@ int main()
 {
 	int a[] = {6, 8, 48, 1, -9, 89};
 
-	print_array(a, 6);
+	print_array(a, (sizeof(a)/sizeof(int)));
 
 	//TODO: write a function, which prints out the passed array's elements.
 

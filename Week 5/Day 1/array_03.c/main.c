@@ -36,11 +36,11 @@ int main()
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
 
-//            printf("%c ", chess_board[i][j]);
+            printf("%c ", chess_board[i][j]);
         }
-//        printf("\n");
+        printf("\n");
     }
-//    printf("\n");
+    printf("\n");
 
     chess_board[0][0] = 'R';
     chess_board[0][1] = 'H';
@@ -78,7 +78,6 @@ int main()
 
         printf("\n");
     }
-
     chess_board[0][0] = 'R';
     chess_board[0][1] = ' ';
     chess_board[0][2] = 'B';
@@ -105,21 +104,16 @@ int main()
 
         chess_board[1][j] = 'P';
         chess_board[6][j] = 'P';
-
         }
     }
-
     for (int i = 0; i < 8; i++) {
 
         for (int j = 0; j < 8; j++) {
 
             printf("%c ", chess_board[i][j]);
-
         }
-
         printf("\n");
     }
-
 
     return 0;
 }

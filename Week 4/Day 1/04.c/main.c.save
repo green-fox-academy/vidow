@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int main() {
+    int numbers[] = {5, 6, 7, 8, 9};
+    int *number_pointer;
+
+    number_pointer = &numbers[0];
+
+//    *number_pointer = &numbers[0];
+    //TODO:
+    // The "number_pointer" should point to the first element of the array called "numbers",
+    // than please print its value with it.
+    //Printing out the memory address of
+    //How to print out the value and memory address of "numbers" array
+    for (int i = 0; i < 5; i++)
+    {
+        printf("%p %d\n", numbers + i, *numbers + i);
+    }
+    //Printing out the value of the first element of numbers array and also the memory address.
+    printf("The value of the first element of 'numbers' is %d at memory address %p.\n", *number_pointer, &number_pointer);
+    
+    return 0;
+}

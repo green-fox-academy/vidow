@@ -12,10 +12,12 @@ void print_car(struct Car vehicle)
 {
     if (vehicle.type != TESLA) {
 
-        printf("Gas: %.2f\n", vehicle.gas);
+        printf("Number: %d\nGas: %.2f\nKm: %.2f", vehicle.type + 1, vehicle.gas, vehicle.km);
     }
+    else {
 
-    printf("Km: %.2f\n", vehicle.km);
+    printf("Number: %d\nKm: %.2f\n", vehicle.type + 1, vehicle.km);
+    }
 }
 
 // TODO:
@@ -29,7 +31,7 @@ int main() {
     struct Car Car_3 = {LAND_ROVER, 300, 10};
     struct Car Car_4 = {TESLA, 200, 0};
 
-    print_car(Car_1);
+    print_car(Car_2);
 
   return 0;
 }

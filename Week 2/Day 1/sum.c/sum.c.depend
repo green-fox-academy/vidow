@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1507555700 source:c:\users\macbook\desktop\c_projects\week 2\day 1\sum.c\main.c
+1507556450 source:c:\users\macbook\desktop\c_projects\week 2\day 1\sum.c\main.c
 	<stdio.h>
 	<stdlib.h>
 	"sum.h"

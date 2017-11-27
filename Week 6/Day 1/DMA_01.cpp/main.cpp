@@ -6,8 +6,17 @@ using namespace std;
 // Please delete the array before the program exits
 
 int main() {
-  int* pointer = NULL;
 
+    int *pointer = NULL;
+
+    int size = 5;
+
+    pointer = new int[size];
+
+    for (int i = 0; i < size; i++) {
+        pointer[i] =+ 1;
+        cout << pointer[i] << endl;
+    }
 
   return 0;
 }

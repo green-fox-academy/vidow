@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+//fill abc string from a to z, print out
+
+int main()
+{
+    char alphabet[24] = {"abcdefghijklmnopqrstuwxyz"};
+
+    for (int i = 'a'; i < 'z'; i++) {
+
+        printf("c\n", alphabet[i]);
+    }
+
+    return 0;
+}

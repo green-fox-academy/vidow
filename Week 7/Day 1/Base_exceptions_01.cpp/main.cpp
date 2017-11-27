@@ -9,7 +9,7 @@ float div(int _a, int _b) {
     if (_b == 0){
         throw 1;
     }
-    return _a / _b;
+    return ((float)_a / (float)_b);
 }
 
 int main() {

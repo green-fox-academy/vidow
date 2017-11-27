@@ -31,7 +31,7 @@ class ATM{
             " Please select from the below menu:\n"
             " 1)  login as customer\n"
             " 2)  login as administrator\n"
-            " 3)  exit                  \n"
+            " 3)  exit\n"
             "========================================\n" << endl;
     }
     void sub_menu_1(){
@@ -42,7 +42,8 @@ class ATM{
             "========================================\n"
             " 1)  check balance\n"
             " 2)  withdraw money\n"
-            " 3)  exit                  \n"
+            " 3)  exit\n"
+            " 4)  menu\n"
             "========================================\n" << endl;
     }
 };
@@ -52,7 +53,7 @@ class Login: public ATM{
     string customer_username = "Norbert";
     string customer_pin = "1234";
     string admin_username = "Norbi";
-    string admin_password = "green";
+    string admin_password = "12345678";
     int customer_counter = 0;
     int pin_counter = 0;
   public:
@@ -97,7 +98,7 @@ class Login: public ATM{
             } while (customer_counter >= 0);
 
         cin >> get_pin;
-        pin_counter++;
+            pin_counter++;
 
             do {
 
@@ -163,7 +164,7 @@ class Admin_login: public ATM{
 
 };
 
-class Account: public ATM{
+class Account: public Login{
   protected:
     int customer_balance = 2000;
     int atm_balance = 10000;
@@ -174,7 +175,7 @@ class Account: public ATM{
     }
     void get(){
 
-        while (getinput != "exit") {
+        while (getinput != "4") {
             cin >> getinput;
 
             if(getinput == "1") {
@@ -193,6 +194,15 @@ class Account: public ATM{
                     cout << "Get amount: " << get_amount << " Customer balance: " << customer_balance << " ATM balance: " << atm_balance << endl;
                 }
             }
+            if(getinput == "3") {
+                exit(0);
+            }
+            if(getinput == "4") {
+                main_menu();
+                login();
+                sub_menu_1();
+                get();
+            }
         }
     }
 };
@@ -208,6 +218,7 @@ int main()
     login.login();
 
     atm.sub_menu_1();
+
     account.get();
 
     return 0;

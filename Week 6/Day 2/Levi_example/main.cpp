@@ -2,7 +2,7 @@ include <iostream>
 
 using namespace std;
 
-class BankAcc{
+class BankAcc {
 private:
     int pin_code;
     float money;
@@ -25,7 +25,6 @@ public:
             cout << "nice try hacker!" << endl;
         }
     }
-
 };
 
 int main()

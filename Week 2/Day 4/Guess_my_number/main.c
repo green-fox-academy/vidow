@@ -26,8 +26,8 @@ Congratulations. You won!
 
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
+#include <stdlib.h>
 
 int main()
 {
@@ -43,21 +43,21 @@ srand(time(NULL));
     do {
         scanf("%d", &number);
         if (number == r){
-            printf("\nCongrats, you won! You have %d lives remaining.", lives);
+            printf("\nCongrats, you won! You have %d live(s) remaining.", lives);
             correct = 1;
             break;
         }
         if (number > r){
             lives--;
-            printf("\nToo high. You have %d lives remaining.", lives);
+            printf("\nToo high. You have %d live(s) remaining.", lives);
         }
 
         if (number < r){
             lives--;
-            printf("\nToo low. You have %d lives remaining.", lives);
+            printf("\nToo low. You have %d live(s) remaining.", lives);
         }
         if (lives == 0){
-            printf(" The correct number was %d. Press any key to continue", r);
+            printf(" The correct number was %d\n. Press any key to continue", r);
             correct = 1;
         }
     } while (correct == 0);

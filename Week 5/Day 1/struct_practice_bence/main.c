@@ -28,24 +28,23 @@ typedef struct student{
 }students;
 
 float average_grade(students *total, int len);
-void bad_clever_guy_printer(students *total, int len);
+char *bad_clever_guy_printer(students *total, int len);
 int good_and_clever_guy_counter(students *total, int len);
 
 int main()
 {
     students student_zero = {"Reki", 5, Good_behaviour};
-    students student_one = {"Meki", 4, Good_behaviour};
+    students student_one = {"Meki", 5, Good_behaviour};
     students student_two = {"Treki", 3, Good_behaviour};
     students student_three = {"Anki", 5, Bad_behaviour};
-    students student_four = {"Kenki", 2, Bad_behaviour};
+    students student_four = {"Kenki", 4, Bad_behaviour};
     students total[] = {student_zero, student_one, student_two, student_three, student_four};
+
     int len = sizeof(total) / sizeof(students);
 
-
     printf("%.2f\n", average_grade(total, len));
-    bad_clever_guy_printer(total, len);
-    good_and_clever_guy_counter(total, len);
-
+    printf("%s you are fcking amazin, please be good.\n", bad_clever_guy_printer(total, len));
+    printf("%d\n", good_and_clever_guy_counter(total, len));
 
     return 0;
 }
@@ -58,24 +57,19 @@ float average_grade(students *total, int len)
     for (int i = 0; i < len; i++) {
 
         counter += total[i].grade;
-
-//        printf("%d\n", counter);
     }
 
     return (float)counter / len;
-
 }
 
-void bad_clever_guy_printer(students *total, int len)
+char *bad_clever_guy_printer(students *total, int len)
 {
 
     for (int i = 0; i < len; i++) {
 
-        if (total[i].grade > 3  && total[i].behav == Bad_behaviour) {
+        if (total[i].grade > 3  && total[i].behav == Bad_behaviour)
 
-        printf("%s you are fuckin amazing, please behave good.\n", total[i].student);
-
-        }
+        return &total[i].student;
     }
 }
 
