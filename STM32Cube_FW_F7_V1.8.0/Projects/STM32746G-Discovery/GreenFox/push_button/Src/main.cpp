@@ -94,12 +94,28 @@ int main(void)
   //Turn the led on to validate the initialization is occured.
   
   /* Add your application code here     */
+
+  BSP_LED_Init(LED_GREEN);
+  BSP_PB_Init(BUTTON_WAKEUP, BUTTON_MODE_GPIO);
+
   /* Infinite loop */
   while (1)
   {
+
+	  if (BSP_PB_GetState(BUTTON_WAKEUP)){
+		  BSP_LED_On(LED_GREEN);
+	  }
+	  else {
+		  BSP_LED_Off(LED_GREEN);
+	  }
+
+
+  }
+
+
 	  //TODO:
 	  //Write a simple program witch flashes(toggle) the led when the button is pressed
-  }
+
 }
 
 /**
