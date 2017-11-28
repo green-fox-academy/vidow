@@ -71,6 +71,12 @@ void Blinker(int _time){
 //	BSP_LED_Off(LED_GREEN);
 }
 
+enum states {
+  LED_ON2S,
+  LED_OFF1S,
+  LED_ON1S,
+  LED_OFF3S
+};
 int main(void)
 {
   /* This project template calls firstly two functions in order to configure MPU feature 
@@ -103,12 +109,14 @@ int main(void)
   
   /* Add your application code here     */
 
+  enum states state = LED_ON2S;
+  int seconds = 0;
+
   BSP_LED_Init(LED_GREEN);
   BSP_LED_On(LED_GREEN);
   HAL_Delay(2000);
   BSP_LED_Off(LED_GREEN);
   BSP_PB_Init(BUTTON_WAKEUP, BUTTON_MODE_GPIO);
-
 
 
   /* Infinite loop */
@@ -140,19 +148,84 @@ int main(void)
 
 //    If the button is pressed, the led blinks every 1 sec, else it blinks every 0.2 sec.
 
-	  if (BSP_PB_GetState(BUTTON_WAKEUP)){
-
-		  Blinker(1000);
-	  }
-
-	  else{
-
-		  Blinker(200);
-	  }
-
+//	  if (BSP_PB_GetState(BUTTON_WAKEUP)){
+//
+//		  Blinker(1000);
+//	  }
+//
+//	  else{
+//
+//		  Blinker(200);
+//	  }
 
 	  //TODO:
 	  //Write a simple program witch flashes(toggle) the led when the button is pressed
+
+//	  	  if (BSP_PB_GetState(BUTTON_TAMPER)){
+//
+//	  		  BSP_LED_Toggle(LED_GREEN);
+//	  		  HAL_Delay(200);
+//
+//	  	  }
+//	  	  else {
+//	  		  BSP_LED_Off(LED_GREEN);
+//	  	  }
+
+//	  switch(state) {
+//	   case LED_ON2S:
+//		 BSP_LED_On(LED_GREEN); // make sure LED is on
+//			 if(seconds >= 1) {
+//			   state = LED_OFF1S; // turn LED off on next round
+//			   seconds = 0;
+//			 }
+//	     break;
+//	   case LED_OFF1S:
+//		 BSP_LED_Off(LED_GREEN); // make sure LED is off
+//	     state = LED_ON1S; // LED back on on next round
+//	     break;
+//	   case LED_ON1S:
+//		 BSP_LED_On(LED_GREEN);
+//	     state = LED_OFF3S;
+//	     seconds = 0; // next state will need this again
+//	     break;
+//	   case LED_OFF3S:
+//		 BSP_LED_Off(LED_GREEN);
+//			 if(seconds >= 2) {
+//			   state = LED_ON2S; // restart cycle on next round
+//			   seconds = 0;
+//			 }
+//	     break;
+//	   }
+//
+//	   HAL_Delay(1000) // sleep for a second
+//	   seconds++;
+
+	  if (BSP_PB_GetState(BUTTON_KEY)) {
+		  seconds++;
+		  HAL_Delay(150);
+	  }
+
+	  if (seconds == 5) {
+		  seconds = 1;
+	  }
+
+
+//		  if (seconds < 4) {
+
+			  if (seconds == 1) {
+				  Blinker(500);
+			  }
+			  if (seconds == 2) {
+				  Blinker(250);
+			  }
+			  if (seconds == 3) {
+				  Blinker(50);
+			  }
+			  if (seconds == 4) {
+				  BSP_LED_Off(LED_GREEN);
+
+			  }
+//		 }
   }
 }
 
