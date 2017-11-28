@@ -63,6 +63,7 @@ static void CPU_CACHE_Enable(void);
   * @param  None
   * @retval None
   */
+
 int main(void)
 {
 
@@ -93,19 +94,79 @@ int main(void)
   /* Add your application code here     */
   BSP_LED_Init(LED_GREEN);
   BSP_LED_On(LED_GREEN);
+  BSP_LED_Off(LED_GREEN);
+
 
   //BSP_LED_Init(LED_GREEN)
+
+  __HAL_RCC_GPIOA_CLK_ENABLE();    // we need to enable the GPIOA port's clock first
+  __HAL_RCC_GPIOF_CLK_ENABLE();    // we need to enable the GPIOF port's clock first
+
+  GPIO_InitTypeDef tda;            // create a config structure
+  tda.Pin = GPIO_PIN_0;            // this is about PIN 0
+  tda.Mode = GPIO_MODE_OUTPUT_PP;  // Configure as output with push-up-down enabled
+  tda.Pull = GPIO_PULLDOWN;        // the push-up-down should work as pulldown
+  tda.Speed = GPIO_SPEED_HIGH;     // we need a high-speed output
+
+  HAL_GPIO_Init(GPIOA, &tda);      // initialize the pin on GPIOA port with HAL
+
+  GPIO_InitTypeDef tdf;            // create a config structure
+  tdf.Pin = GPIO_PIN_10 | GPIO_PIN_9 | GPIO_PIN_8;            // this is about PIN 10
+  tdf.Mode = GPIO_MODE_OUTPUT_PP;  // Configure as output with push-up-down enabled
+  tdf.Pull = GPIO_PULLDOWN;        // the push-up-down should work as pulldown
+  tdf.Speed = GPIO_SPEED_HIGH;     // we need a high-speed output
+
+  HAL_GPIO_Init(GPIOF, &tdf);      // initialize the pin on GPIOA port with HAL
 
   /* Infinite loop */
   while (1)
   {
-
+/*
+	  //HAL_Delay(200); //Green led flashes every 2 sec.
 	  BSP_LED_Toggle(LED_GREEN);
 	  HAL_Delay(200);
-	  //HAL_Delay(200); //Green led flashes every 2 sec.
+
 
 	  //TODO:
 	  //Flash the ledwith 200 ms period time
+*/
+
+//Day 2 project, first circuit
+
+//	  //All leds blinking
+//
+//	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);    // setting the pin to 1
+//	  HAL_Delay(1000);                                       // wait a second
+//	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);  // setting the pin to 0
+//
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, GPIO_PIN_SET);   // setting the pin to 10
+//	  HAL_Delay(1000);                                       // wait a second
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, GPIO_PIN_RESET); // setting the pin to 0
+//
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_SET);    // setting the pin to 9
+//	  HAL_Delay(1000);
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_RESET);  // setting the pin to 0
+//
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_8, GPIO_PIN_SET);    // setting the pin to 8
+//	  HAL_Delay(1000);										 // wait a second
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_8, GPIO_PIN_RESET);  // setting the pin to 0
+
+	  GPIOA->ODR |= 1;          // set the lowest bit to 1, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
+	  HAL_Delay(1000);                      // wait a second
+	  GPIOA->ODR &= 0xFFFFFFFE; // this will set the lowest bit (PIN 0) to 0. Guess why! - Because 0xFFFFFFFE is many 0 and 1 thus it negates the first line, aka sets the state to 0.
+
+	  GPIOF->ODR |= 10;          // set the lowest bit to 1, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
+	  HAL_Delay(1000);                      // wait a second
+	  GPIOA->ODR &= 0xFFFFFFFA; // this will set the lowest bit (PIN 0) to 0. Guess why! - Because 0xFFFFFFFE is many 0 and 1 thus it negates the first line, aka sets the state to 0.
+
+	  GPIOF->ODR = GPIOF->ODR | 1;          // set the lowest bit to 1, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
+	  HAL_Delay(1000);                      // wait a second
+	  GPIOA->ODR = GPIOF->ODR & 0xFFFFFFFE; // this will set the lowest bit (PIN 0) to 0. Guess why! - Because 0xFFFFFFFE is many 0 and 1 thus it negates the first line, aka sets the state to 0.
+
+	  GPIOF->ODR = GPIOF->ODR | 1;          // set the lowest bit to 1, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
+	  HAL_Delay(1000);                      // wait a second
+	  GPIOA->ODR = GPIOF->ODR & 0xFFFFFFFE; // this will set the lowest bit (PIN 0) to 0. Guess why! - Because 0xFFFFFFFE is many 0 and 1 thus it negates the first line, aka sets the state to 0.
+
 
   }
 }
