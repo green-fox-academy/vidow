@@ -92,9 +92,9 @@ int main(void)
 
 
   /* Add your application code here     */
-  BSP_LED_Init(LED_GREEN);
-  BSP_LED_On(LED_GREEN);
-  BSP_LED_Off(LED_GREEN);
+//  BSP_LED_Init(LED_GREEN);
+//  BSP_LED_On(LED_GREEN);
+//  BSP_LED_Off(LED_GREEN);
 
 
   //BSP_LED_Init(LED_GREEN)
@@ -151,23 +151,21 @@ int main(void)
 //	  HAL_Delay(1000);										 // wait a second
 //	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_8, GPIO_PIN_RESET);  // setting the pin to 0
 
-	  GPIOA->ODR |= 1;          // set the lowest bit to 1, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
-	  HAL_Delay(1000);                      // wait a second
-	  GPIOA->ODR &= 0xFFFFFFFE; // this will set the lowest bit (PIN 0) to 0. Guess why! - Because 0xFFFFFFFE is many 0 and 1 thus it negates the first line, aka sets the state to 0.
+	  GPIOA->ODR |= 1;          		// set the lowest bit to 1, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
+	  HAL_Delay(1000);                  // wait a second
+	  GPIOA->ODR &= ~(1 << 0); 			// this will set the lowest bit (PIN 0) to 0. Guess why! - Because 0xFFFFFFFE is many 0 and 1 thus it negates the first line, aka sets the state to 0.
 
-	  GPIOF->ODR |= 10;          // set the lowest bit to 1, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
-	  HAL_Delay(1000);                      // wait a second
-	  GPIOA->ODR &= 0xFFFFFFFA; // this will set the lowest bit (PIN 0) to 0. Guess why! - Because 0xFFFFFFFE is many 0 and 1 thus it negates the first line, aka sets the state to 0.
+	  GPIOF->ODR |= (1 << 10);          // set the lowest bit to 10, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
+	  HAL_Delay(1000);                  // wait a second
+	  GPIOF->ODR &= ~(1 << 10); 		// this will set the lowest bit (PIN 0) to 0.
 
-	  GPIOF->ODR = GPIOF->ODR | 1;          // set the lowest bit to 1, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
-	  HAL_Delay(1000);                      // wait a second
-	  GPIOA->ODR = GPIOF->ODR & 0xFFFFFFFE; // this will set the lowest bit (PIN 0) to 0. Guess why! - Because 0xFFFFFFFE is many 0 and 1 thus it negates the first line, aka sets the state to 0.
+	  GPIOF->ODR |= (1 << 9);           // set the lowest bit to 9, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
+	  HAL_Delay(1000);                  // wait a second
+	  GPIOF->ODR &= ~(1 << 9); 			// this will set the lowest bit (PIN 0) to 0.
 
-	  GPIOF->ODR = GPIOF->ODR | 1;          // set the lowest bit to 1, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
-	  HAL_Delay(1000);                      // wait a second
-	  GPIOA->ODR = GPIOF->ODR & 0xFFFFFFFE; // this will set the lowest bit (PIN 0) to 0. Guess why! - Because 0xFFFFFFFE is many 0 and 1 thus it negates the first line, aka sets the state to 0.
-
-
+	  GPIOF->ODR |= (1 << 8);           // set the lowest bit to 8, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
+	  HAL_Delay(1000);                  // wait a second
+	  GPIOF->ODR &= ~(1 << 8); 			// this will set the lowest bit (PIN 0) to 0.
   }
 }
 
