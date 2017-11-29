@@ -86,6 +86,64 @@ void AllLedsOff(){
 
 }
 
+void OneDChaseLight(int _delay){
+
+
+
+  GPIOF->ODR |= (1 << 7); // First green led (A4 pin on board)
+  HAL_Delay(_delay);
+  GPIOF->ODR &= ~(1 << 7);
+
+  GPIOA->ODR |= 1;
+  HAL_Delay(_delay);
+  GPIOA->ODR &= ~(1 << 0);
+
+  GPIOF->ODR |= (1 << 10);
+  HAL_Delay(_delay);
+  GPIOF->ODR &= ~(1 << 10);
+
+  GPIOF->ODR |= (1 << 8);
+  HAL_Delay(_delay);
+  GPIOF->ODR &= ~(1 << 8);
+
+  GPIOF->ODR |= (1 << 9);
+  HAL_Delay(_delay);
+  GPIOF->ODR &= ~(1 << 9);
+
+  GPIOF->ODR |= (1 << 6);
+  HAL_Delay(_delay);
+  GPIOF->ODR &= ~(1 << 6); //Last green led (A5 pin on board)
+
+}
+
+void TwoDChaseLight(int _delay){
+
+  GPIOF->ODR |= (1 << 7);
+  GPIOF->ODR |= (1 << 6);
+  HAL_Delay(_delay);
+  GPIOF->ODR &= ~(1 << 7);
+  GPIOF->ODR &= ~(1 << 6);
+
+  GPIOA->ODR |= 1;
+  GPIOF->ODR |= (1 << 9);
+  HAL_Delay(_delay);
+  GPIOA->ODR &= ~(1 << 0);
+  GPIOF->ODR &= ~(1 << 9);
+
+  GPIOF->ODR |= (1 << 10);
+  GPIOF->ODR |= (1 << 8);
+  HAL_Delay(_delay);
+  GPIOF->ODR &= ~(1 << 10);
+  GPIOF->ODR &= ~(1 << 8);
+
+  GPIOA->ODR |= 1;
+  GPIOF->ODR |= (1 << 9);
+  HAL_Delay(_delay);
+  GPIOA->ODR &= ~(1 << 0);
+  GPIOF->ODR &= ~(1 << 9);
+
+}
+
 int main(void)
 {
 
@@ -169,32 +227,33 @@ int main(void)
 
 //Day 2 project, first circuit
 
-	  //All leds blinking
+//All leds blinking using HAL GPIO.
 
-	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_SET);    // setting the pin to 8
-	  HAL_Delay(1000);										 // wait a second
-	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_RESET);  // setting the pin to 0
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_SET);    // setting the pin to 8
+//	  HAL_Delay(1000);										 // wait a second
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_RESET);  // setting the pin to 0
+//
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_7, GPIO_PIN_SET);    // setting the pin to 8
+//	  HAL_Delay(1000);										 // wait a second
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_7, GPIO_PIN_RESET);  // setting the pin to 0
+//
+//	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);    // setting the pin to 1
+//	  HAL_Delay(1000);                                       // wait a second
+//	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);  // setting the pin to 0
+//
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, GPIO_PIN_SET);   // setting the pin to 10
+//	  HAL_Delay(1000);                                       // wait a second
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, GPIO_PIN_RESET); // setting the pin to 0
+//
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_8, GPIO_PIN_SET);    // setting the pin to 8
+//	  HAL_Delay(1000);										 // wait a second
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_8, GPIO_PIN_RESET);  // setting the pin to 0
+//
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_SET);    // setting the pin to 9
+//	  HAL_Delay(1000);
+//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_RESET);  // setting the pin to 0
 
-	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_7, GPIO_PIN_SET);    // setting the pin to 8
-	  HAL_Delay(1000);										 // wait a second
-	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_7, GPIO_PIN_RESET);  // setting the pin to 0
-
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);    // setting the pin to 1
-	  HAL_Delay(1000);                                       // wait a second
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);  // setting the pin to 0
-
-	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, GPIO_PIN_SET);   // setting the pin to 10
-	  HAL_Delay(1000);                                       // wait a second
-	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, GPIO_PIN_RESET); // setting the pin to 0
-
-	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_8, GPIO_PIN_SET);    // setting the pin to 8
-	  HAL_Delay(1000);										 // wait a second
-	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_8, GPIO_PIN_RESET);  // setting the pin to 0
-
-	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_SET);    // setting the pin to 9
-	  HAL_Delay(1000);
-	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_RESET);  // setting the pin to 0
-
+//All leds blinking using ODR.
 
 //	  GPIOF->ODR |= (1 << 6);           // set the lowest bit to 8, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
 //	  HAL_Delay(1000);                  // wait a second
@@ -220,11 +279,9 @@ int main(void)
 //	  HAL_Delay(1000);                  // wait a second
 //	  GPIOF->ODR &= ~(1 << 9); 			// this will set the lowest bit (PIN 0) to 0.
 
+// Day 3
 
-		// this will set the lowest bit (PIN 0) to 0.
-
-
-// Leds lights up upon a press of a button and go off upon pressing again, however it is not stable.
+// Leds lights up upon a press of a button and go off upon pressing again, however it is not stable, using functions.
 
 //		  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == 0) {
 //			  counter++;
@@ -243,6 +300,8 @@ int main(void)
 //			AllLedsOn();
 //
 //		  }
+
+// Leds light up using true/false bool.
 
 //		  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == 1) {
 //			  HAL_Delay(10);
@@ -271,6 +330,59 @@ int main(void)
 //		  	  GPIOF->ODR |= (1 << 9);
 //
 //		  }
+
+
+//One direction chase light with function with adjustable delay.
+
+//	  OneDChaseLight(1000);
+
+
+//Two direction chase light with function with adjustable delay.
+
+//	  TwoDChaseLight(150);
+
+
+
+//Chase light where pressing the button switches between One and Two direction chase light with constant delay.
+
+//	  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == 0) {
+//		  counter++;
+//		  HAL_Delay(10);
+//		  if (counter > 1)
+//			  counter = 0;
+//	  }
+//
+//	  if (counter == 0) {
+//
+//		  OneDChaseLight(250);
+//
+//	  }
+//	  else if (counter == 1) {
+//
+//		  TwoDChaseLight(250);
+//
+//	  }
+
+//Switching speed between One direction chase light with a press of the button.
+
+	  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == 0) {
+		  counter++;
+		  HAL_Delay(10);
+		  if (counter > 2)
+			  counter = 0;
+	  }
+
+	  if (counter == 0) {
+		  OneDChaseLight(500);
+	  }
+	  if (counter == 1) {
+		  OneDChaseLight(100);
+	  }
+//Extra function which switches to Two direction light.
+	  if (counter == 2) {
+		  TwoDChaseLight(250);
+	  }
+
   }
 
 }
