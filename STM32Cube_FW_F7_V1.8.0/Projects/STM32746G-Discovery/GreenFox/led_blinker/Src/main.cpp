@@ -64,6 +64,28 @@ static void CPU_CACHE_Enable(void);
   * @retval None
   */
 
+void AllLedsOn(){
+
+  GPIOF->ODR |= (1 << 6);
+  GPIOF->ODR |= (1 << 7);
+  GPIOA->ODR |= 1;
+  GPIOF->ODR |= (1 << 10);
+  GPIOF->ODR |= (1 << 8);
+  GPIOF->ODR |= (1 << 9);
+
+}
+
+void AllLedsOff(){
+
+  GPIOF->ODR &= ~(1 << 6);
+  GPIOF->ODR &= ~(1 << 7);
+  GPIOA->ODR &= ~(1 << 0);
+  GPIOF->ODR &= ~(1 << 10);
+  GPIOF->ODR &= ~(1 << 8);
+  GPIOF->ODR &= ~(1 << 9);
+
+}
+
 int main(void)
 {
 
@@ -113,7 +135,7 @@ int main(void)
   HAL_GPIO_Init(GPIOA, &tda);      // initialize the pin on GPIOA port with HAL
 //Requires for the other 3 buttons
   GPIO_InitTypeDef tdf;            // create a config structure
-  tdf.Pin = GPIO_PIN_10 | GPIO_PIN_9 | GPIO_PIN_8;            // this is about PIN 10
+  tdf.Pin = GPIO_PIN_10 | GPIO_PIN_9 | GPIO_PIN_8 | GPIO_PIN_7 | GPIO_PIN_6;            // this is about PIN 10
   tdf.Mode = GPIO_MODE_OUTPUT_PP;  // Configure as output with push-up-down enabled
   tdf.Pull = GPIO_PULLDOWN;        // the push-up-down should work as pulldown
   tdf.Speed = GPIO_SPEED_HIGH;     // we need a high-speed output
@@ -124,12 +146,15 @@ int main(void)
   GPIO_InitTypeDef tdc;            // create a config structure
   tdc.Pin = GPIO_PIN_7;            // this is about PIN 10
   tdc.Mode = GPIO_MODE_INPUT;  // Configure as output with push-up-down enabled
-  tdc.Pull = GPIO_PULLUP;        // the push-up-down should work as pulldown
+  tdc.Pull = GPIO_PULLUP;        // the push-up-down should work as pullup
   tdc.Speed = GPIO_SPEED_HIGH;     // we need a high-speed output
 
   HAL_GPIO_Init(GPIOC, &tdc);      // initialize the pin on GPIOA port with HAL
 
   /* Infinite loop */
+  int counter = 0;
+  bool state = false;
+
   while (1)
   {
 /*
@@ -144,24 +169,41 @@ int main(void)
 
 //Day 2 project, first circuit
 
-//	  //All leds blinking
-//
-//	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);    // setting the pin to 1
-//	  HAL_Delay(1000);                                       // wait a second
-//	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);  // setting the pin to 0
-//
-//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, GPIO_PIN_SET);   // setting the pin to 10
-//	  HAL_Delay(1000);                                       // wait a second
-//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, GPIO_PIN_RESET); // setting the pin to 0
-//
-//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_SET);    // setting the pin to 9
-//	  HAL_Delay(1000);
-//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_RESET);  // setting the pin to 0
-//
-//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_8, GPIO_PIN_SET);    // setting the pin to 8
-//	  HAL_Delay(1000);										 // wait a second
-//	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_8, GPIO_PIN_RESET);  // setting the pin to 0
+	  //All leds blinking
 
+	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_SET);    // setting the pin to 8
+	  HAL_Delay(1000);										 // wait a second
+	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_RESET);  // setting the pin to 0
+
+	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_7, GPIO_PIN_SET);    // setting the pin to 8
+	  HAL_Delay(1000);										 // wait a second
+	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_7, GPIO_PIN_RESET);  // setting the pin to 0
+
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);    // setting the pin to 1
+	  HAL_Delay(1000);                                       // wait a second
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);  // setting the pin to 0
+
+	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, GPIO_PIN_SET);   // setting the pin to 10
+	  HAL_Delay(1000);                                       // wait a second
+	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, GPIO_PIN_RESET); // setting the pin to 0
+
+	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_8, GPIO_PIN_SET);    // setting the pin to 8
+	  HAL_Delay(1000);										 // wait a second
+	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_8, GPIO_PIN_RESET);  // setting the pin to 0
+
+	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_SET);    // setting the pin to 9
+	  HAL_Delay(1000);
+	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_RESET);  // setting the pin to 0
+
+
+//	  GPIOF->ODR |= (1 << 6);           // set the lowest bit to 8, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
+//	  HAL_Delay(1000);                  // wait a second
+//	  GPIOF->ODR &= ~(1 << 6);
+//
+//	  GPIOF->ODR |= (1 << 7);           // set the lowest bit to 8, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
+//	  HAL_Delay(1000);                  // wait a second
+//	  GPIOF->ODR &= ~(1 << 7);
+//
 //	  GPIOA->ODR |= 1;          		// set the lowest bit to 1, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
 //	  HAL_Delay(1000);                  // wait a second
 //	  GPIOA->ODR &= ~(1 << 0); 			// this will set the lowest bit (PIN 0) to 0. Guess why! - Because 0xFFFFFFFE is many 0 and 1 thus it negates the first line, aka sets the state to 0.
@@ -170,50 +212,65 @@ int main(void)
 //	  HAL_Delay(1000);                  // wait a second
 //	  GPIOF->ODR &= ~(1 << 10); 		// this will set the lowest bit (PIN 0) to 0.
 //
-//	  GPIOF->ODR |= (1 << 9);           // set the lowest bit to 9, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
-//	  HAL_Delay(1000);                  // wait a second
-//	  GPIOF->ODR &= ~(1 << 9); 			// this will set the lowest bit (PIN 0) to 0.
-//
 //	  GPIOF->ODR |= (1 << 8);           // set the lowest bit to 8, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
 //	  HAL_Delay(1000);                  // wait a second
 //	  GPIOF->ODR &= ~(1 << 8); 			// this will set the lowest bit (PIN 0) to 0.
+//
+//	  GPIOF->ODR |= (1 << 9);           // set the lowest bit to 9, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
+//	  HAL_Delay(1000);                  // wait a second
+//	  GPIOF->ODR &= ~(1 << 9); 			// this will set the lowest bit (PIN 0) to 0.
 
-	  int seconds = 0;
 
-		  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == 0) {
-			  seconds++;
-			  HAL_Delay(150);
-		  }
+		// this will set the lowest bit (PIN 0) to 0.
 
-		  if (seconds % 2 == 0) {
 
-		  	  GPIOA->ODR |= 1;          		// set the lowest bit to 1, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
-//		  	  HAL_Delay(100);                  // wait a second
-//		  	  GPIOA->ODR &= ~(1 << 0); 			// this will set the lowest bit (PIN 0) to 0. Guess why! - Because 0xFFFFFFFE is many 0 and 1 thus it negates the first line, aka sets the state to 0.
+// Leds lights up upon a press of a button and go off upon pressing again, however it is not stable.
 
-		  	  GPIOF->ODR |= (1 << 10);          // set the lowest bit to 10, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
-//		  	  HAL_Delay(100);                  // wait a second
-//		  	  GPIOF->ODR &= ~(1 << 10); 		// this will set the lowest bit (PIN 0) to 0.
+//		  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == 0) {
+//			  counter++;
+//			  HAL_Delay(10);
+//			  if (counter > 1)
+//				  counter = 0;
+//		  }
+//
+//		  if (counter == 0) {
+//
+//			AllLedsOff();
+//
+//		  }
+//		  else if (counter == 1) {
+//
+//			AllLedsOn();
+//
+//		  }
 
-		  	  GPIOF->ODR |= (1 << 9);           // set the lowest bit to 9, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
-//		  	  HAL_Delay(100);                  // wait a second
-//		  	  GPIOF->ODR &= ~(1 << 9); 			// this will set the lowest bit (PIN 0) to 0.
-
-		  	  GPIOF->ODR |= (1 << 8);           // set the lowest bit to 8, leave the others as they are (this will set the lowest bit - PIN 0 - to 1)
-//		  	  HAL_Delay(100);                  // wait a second
-//		  	  GPIOF->ODR &= ~(1 << 8); 			// this will set the lowest bit (PIN 0) to 0.
-
-		  }
-
-		  if (seconds % 2 == 1) {
-
-			  GPIOA->ODR &= ~(1 << 0);
-			  GPIOF->ODR &= ~(1 << 10);
-			  GPIOF->ODR &= ~(1 << 9);
-			  GPIOF->ODR &= ~(1 << 8);
-
-		  }
-
+//		  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == 1) {
+//			  HAL_Delay(10);
+//			  if (counter > 1)
+//				  counter = 0;
+//		  }
+//
+//		  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == 1) {
+//
+//			  GPIOF->ODR &= ~(1 << 6);
+//			  GPIOF->ODR &= ~(1 << 7);
+//			  GPIOA->ODR &= ~(1 << 0);
+//			  GPIOF->ODR &= ~(1 << 10);
+//			  GPIOF->ODR &= ~(1 << 8);
+//			  GPIOF->ODR &= ~(1 << 9);
+//
+//		  }
+//
+//		  else if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == 1) {
+//
+//			  GPIOF->ODR |= (1 << 6);
+//		  	  GPIOF->ODR |= (1 << 7);
+//		  	  GPIOA->ODR |= 1;
+//		  	  GPIOF->ODR |= (1 << 10);
+//		  	  GPIOF->ODR |= (1 << 8);
+//		  	  GPIOF->ODR |= (1 << 9);
+//
+//		  }
   }
 
 }
