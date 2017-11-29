@@ -181,9 +181,9 @@ int main(void)
 
   __HAL_RCC_GPIOA_CLK_ENABLE();    // we need to enable the GPIOA port's clock first
   __HAL_RCC_GPIOF_CLK_ENABLE();    // we need to enable the GPIOF port's clock first
-  __HAL_RCC_GPIOC_CLK_ENABLE();    // we need to enable the GPIOF port's clock first
+  __HAL_RCC_GPIOC_CLK_ENABLE();    // we need to enable the GPIOC port's clock first
 
-//Requires for the first button
+//Requires for the first led
   GPIO_InitTypeDef tda;            // create a config structure
   tda.Pin = GPIO_PIN_0;            // this is about PIN 0
   tda.Mode = GPIO_MODE_OUTPUT_PP;  // Configure as output with push-up-down enabled
@@ -191,7 +191,7 @@ int main(void)
   tda.Speed = GPIO_SPEED_HIGH;     // we need a high-speed output
 
   HAL_GPIO_Init(GPIOA, &tda);      // initialize the pin on GPIOA port with HAL
-//Requires for the other 3 buttons
+//Requires for the other 5 leds
   GPIO_InitTypeDef tdf;            // create a config structure
   tdf.Pin = GPIO_PIN_10 | GPIO_PIN_9 | GPIO_PIN_8 | GPIO_PIN_7 | GPIO_PIN_6;            // this is about PIN 10
   tdf.Mode = GPIO_MODE_OUTPUT_PP;  // Configure as output with push-up-down enabled
@@ -210,6 +210,42 @@ int main(void)
   HAL_GPIO_Init(GPIOC, &tdc);      // initialize the pin on GPIOA port with HAL
 
   /* Infinite loop */
+				//////////////////////////////////////////
+				// Added LED struct and defined the leds//
+				//////////////////////////////////////////
+ struct LED {
+	  	  GPIO_TypeDef *LED_port;
+	  	  uint16_t LED_pin;
+  };
+
+ struct LED L0;
+ L0.LED_port = GPIOA;
+ L0.LED_pin = GPIO_PIN_0;
+ struct LED L1;
+ L1.LED_port = GPIOF;
+ L1.LED_pin = GPIO_PIN_10;
+ struct LED L2;
+ L1.LED_port = GPIOF;
+ L1.LED_pin = GPIO_PIN_9;
+ struct LED L3;
+ L1.LED_port = GPIOF;
+ L1.LED_pin = GPIO_PIN_8;
+ struct LED L4;
+ L1.LED_port = GPIOF;
+ L1.LED_pin = GPIO_PIN_7;
+ struct LED L5;
+ L1.LED_port = GPIOF;
+ L1.LED_pin = GPIO_PIN_6;
+
+ struct LED led_array[5];
+ led_array[0] = L0;
+ led_array[1] = L1;
+ led_array[2] = L2;
+ led_array[3] = L3;
+ led_array[4] = L4;
+ led_array[5] = L5;
+
+
   int counter = 0;
   bool state = false;
 
@@ -337,18 +373,15 @@ int main(void)
 //
 //		  }
 
-//////////////////////////////////////////////////////////////////
-//One direction chase light with function with adjustable delay.//
-//////////////////////////////////////////////////////////////////
+
+//One direction chase light with function with adjustable delay.
+
 
 //	  OneDChaseLight(1000);
-
 
 //Two direction chase light with function with adjustable delay.
 
 //	  TwoDChaseLight(150);
-
-
 
 //Chase light where pressing the button switches between One and Two direction chase light with constant delay.
 
@@ -372,26 +405,30 @@ int main(void)
 
 //Switching speed between One direction chase light with a press of the button.
 
-	  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == 0) {
-		  counter++;
-		  HAL_Delay(10);
-		  if (counter > 2)
-			  counter = 0;
-	  }
+//	  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == 0) {
+//		  counter++;
+//		  HAL_Delay(10);
+//		  if (counter > 2)
+//			  counter = 0;
+//	  }
+//
+//	  if (counter == 0) {
+//		  OneDChaseLight(500);
+//	  }
+//	  if (counter == 1) {
+//		  OneDChaseLight(100);
+//	  }
+////Extra function which switches to Two direction light.
+//	  if (counter == 2) {
+//		  TwoDChaseLight(250);
+//	  }
 
-	  if (counter == 0) {
-		  OneDChaseLight(500);
-	  }
-	  if (counter == 1) {
-		  OneDChaseLight(100);
-	  }
-//Extra function which switches to Two direction light.
-	  if (counter == 2) {
-		  TwoDChaseLight(250);
+	  for (int i = 0; i < 6; i++) {
+		  HAL_GPIO_WritePin(led_array[i].LED_port, led_array[i].LED_pin, GPIO_PIN_SET);
+
 	  }
 
   }
-
 }
 
 /**
