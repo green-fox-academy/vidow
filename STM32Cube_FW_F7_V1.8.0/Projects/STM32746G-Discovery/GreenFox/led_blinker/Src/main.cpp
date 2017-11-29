@@ -215,6 +215,9 @@ int main(void)
 
   while (1)
   {
+				 ///////////////////////////////////////
+				 //Day 1, Introduction to STM32, GPIO//
+				 /////////////////////////////////////
 /*
 	  //HAL_Delay(200); //Green led flashes every 2 sec.
 	  BSP_LED_Toggle(LED_GREEN);
@@ -224,8 +227,9 @@ int main(void)
 	  //TODO:
 	  //Flash the ledwith 200 ms period time
 */
-
-//Day 2 project, first circuit
+				////////////////////////////////
+				//Day 2 project, first circuit//
+				////////////////////////////////
 
 //All leds blinking using HAL GPIO.
 
@@ -279,7 +283,9 @@ int main(void)
 //	  HAL_Delay(1000);                  // wait a second
 //	  GPIOF->ODR &= ~(1 << 9); 			// this will set the lowest bit (PIN 0) to 0.
 
-// Day 3
+					/////////////////////////////////
+					// Day 3 project, GPIO practice//
+					/////////////////////////////////
 
 // Leds lights up upon a press of a button and go off upon pressing again, however it is not stable, using functions.
 
@@ -331,8 +337,9 @@ int main(void)
 //
 //		  }
 
-
-//One direction chase light with function with adjustable delay.
+//////////////////////////////////////////////////////////////////
+//One direction chase light with function with adjustable delay.//
+//////////////////////////////////////////////////////////////////
 
 //	  OneDChaseLight(1000);
 
