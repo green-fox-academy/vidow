@@ -209,23 +209,19 @@ int main(void)
 		  seconds = 1;
 	  }
 
+	  if (seconds == 1) {
+		  Blinker(500);
+	  }
+	  if (seconds == 2) {
+		  Blinker(250);
+	  }
+	  if (seconds == 3) {
+		  Blinker(50);
+	  }
+	  if (seconds == 4) {
+		  BSP_LED_Off(LED_GREEN);
 
-//		  if (seconds < 4) {
-
-			  if (seconds == 1) {
-				  Blinker(500);
-			  }
-			  if (seconds == 2) {
-				  Blinker(250);
-			  }
-			  if (seconds == 3) {
-				  Blinker(50);
-			  }
-			  if (seconds == 4) {
-				  BSP_LED_Off(LED_GREEN);
-
-			  }
-//		 }
+	  }
   }
 }
 
