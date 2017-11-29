@@ -210,9 +210,10 @@ int main(void)
   HAL_GPIO_Init(GPIOC, &tdc);      // initialize the pin on GPIOA port with HAL
 
   /* Infinite loop */
-				//////////////////////////////////////////
-				// Added LED struct and defined the leds//
-				//////////////////////////////////////////
+
+				///////////////////////////////////////////
+				// Adding LED struct and defined the leds//
+				///////////////////////////////////////////
  struct LED {
 	  	  GPIO_TypeDef *LED_port;
 	  	  uint16_t LED_pin;
@@ -423,10 +424,12 @@ int main(void)
 //		  TwoDChaseLight(250);
 //	  }
 
-	  for (int i = 0; i < 6; i++) {
-		  HAL_GPIO_WritePin(led_array[i].LED_port, led_array[i].LED_pin, GPIO_PIN_SET);
-
-	  }
+	  HAL_GPIO_WritePin(L0.LED_port, L0.LED_pin, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(L1.LED_port, L1.LED_pin, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(L2.LED_port, L2.LED_pin, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(L3.LED_port, L3.LED_pin, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(L4.LED_port, L4.LED_pin, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(L5.LED_port, L5.LED_pin, GPIO_PIN_SET);
 
   }
 }
