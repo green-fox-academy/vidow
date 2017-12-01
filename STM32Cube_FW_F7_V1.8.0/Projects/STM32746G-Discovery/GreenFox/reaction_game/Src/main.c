@@ -101,16 +101,16 @@ void TurnOffLed(){
 //	}
 //}
 
-void My_Delay(uint32_t Delay)
+int My_Delay(uint32_t delay)
 {
-  uint32_t tickstart = 0;
-  tickstart = HAL_GetTick();
-  while((HAL_GetTick() - tickstart) < Delay)
-  {
-	  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == 0){
-		  break;
-	  }
-  }
+	uint32_t tickstart = 0;
+	tickstart = HAL_GetTick();
+	while((HAL_GetTick() - tickstart) < delay)
+	{
+		if (BSP_PB_GetState(BUTTON_KEY) == 1)
+			return -1;
+	}
+	return 0;
 }
 
 int main(void)
@@ -191,49 +191,85 @@ int main(void)
   uint32_t finish = 0;
   uint8_t falseClick = 0;
   uint32_t counter = 0;
+  unsigned int results[10] = {0};
+  unsigned int results_len = 0;
+  unsigned int results_pos = 0;
 
 	while (1) {
 
-		if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == LOW) {
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, LOW);
-			HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7);
-			break;
-		}
-		if (counter % 1000 == 0) {
-			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
+		HAL_RNG_GenerateRandomNumber(&rnd, &rnd_num);
+		rnd_num = rnd_num % 10000 + 1;
 
+		while (BSP_PB_GetState(BUTTON_KEY) == 0) {
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, HIGH);
+			  if (My_Delay(100) == 0) {
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, LOW);
+				  My_Delay(900);
+			  }
 		}
-		HAL_Delay(1);
-		counter++;
+
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, LOW);
+
+//		if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == LOW) {
+//			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, LOW);
+//			HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7);
+//			break;
+//		}
+//		if (counter % 1000 == 0) {
+//			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
+//
+//		}
+//		HAL_Delay(1);
+//		counter++;
+
+	while (BSP_PB_GetState(BUTTON_KEY) == 1) {
 
 	}
+
+
 
 	printf("Button is pressed.\r\n\n");
 
-	HAL_RNG_GenerateRandomNumber(&rnd, &rnd_num);
-	rnd_num = rnd_num % 10000 + 1;
 	printf("Random number is generating now...\n");
 	printf("... random number is %i\n", rnd_num);
 
-	for (int i = rnd_num; i > 0; i--) {
-		HAL_Delay(1);
-		if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == LOW) {
-			falseClick = 1;
-		}
-	}
+//	for (int i = rnd_num; i > 0; i--) {
+//		HAL_Delay(1);
+//		if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == LOW) {
+//			falseClick = 1;
+//		}
+//	}
 
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, HIGH);
+//	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, HIGH);
 	start = HAL_GetTick();
 
-	if (falseClick == 1) {
+	if (My_Delay(rnd_num) == -1) {
 		printf("Too fast!\n");
 	}
-	else{
-		printf("Good!\n");
+	else {
+		printf("Push the button now!\n");
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, HIGH);
+		start = HAL_GetTick();
+
+		while (BSP_PB_GetState(BUTTON_KEY) == 0) {
+
+		}
+
+		  if (results_len < 10) {
+			  ++results_len;
+		  results[results_pos] = HAL_GetTick() - start;
+		  printf("Your reaction time was: %u ms.\n", results[results_pos]);
+		  }
+
 	}
 
+	while (BSP_PB_GetState(BUTTON_KEY) == 1) {
 
+	}
 
+	printf("Are you ready for the next round?\n");
+
+	}
 }
 /**
   * @brief  Retargets the C library printf function to the USART.
