@@ -113,6 +113,8 @@ int My_Delay(uint32_t delay)
 	return 0;
 }
 
+RNG_HandleTypeDef rnd;
+
 int main(void)
 {
   /* This project template calls firstly two functions in order to configure MPU feature 
@@ -164,7 +166,7 @@ int main(void)
 
 	HAL_GPIO_Init(GPIOC, &tdc);      // initialize the pin on GPIOA port with HAL
 
-	RNG_HandleTypeDef rnd;
+
 	rnd.Instance     = RNG;
 	HAL_RNG_Init(&rnd);
 
@@ -197,14 +199,11 @@ int main(void)
 
 	while (1) {
 
-		HAL_RNG_GenerateRandomNumber(&rnd, &rnd_num);
-		rnd_num = rnd_num % 10000 + 1;
-
 		while (BSP_PB_GetState(BUTTON_KEY) == 0) {
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, HIGH);
-			  if (My_Delay(100) == 0) {
+			  if (My_Delay(1000) == 0) {
 				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, LOW);
-				  My_Delay(900);
+				  My_Delay(1000);
 			  }
 		}
 
@@ -226,7 +225,8 @@ int main(void)
 
 	}
 
-
+	HAL_RNG_GenerateRandomNumber(&rnd, &rnd_num);
+	rnd_num = rnd_num % 10000;
 
 	printf("Button is pressed.\r\n\n");
 
