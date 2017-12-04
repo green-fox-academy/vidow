@@ -215,28 +215,16 @@ int main(void)
 				// Adding LED struct and defined the leds//
 				///////////////////////////////////////////
  struct LED {
-	  	  GPIO_TypeDef *LED_port;
-	  	  uint16_t LED_pin;
+	  	  GPIO_InitTypeDef a;
+	  	  GPIO_TypeDef *b;
   };
 
- struct LED L0;
- L0.LED_port = GPIOA;
- L0.LED_pin = GPIO_PIN_0;
- struct LED L1;
- L1.LED_port = GPIOF;
- L1.LED_pin = GPIO_PIN_10;
- struct LED L2;
- L1.LED_port = GPIOF;
- L1.LED_pin = GPIO_PIN_9;
- struct LED L3;
- L1.LED_port = GPIOF;
- L1.LED_pin = GPIO_PIN_8;
- struct LED L4;
- L1.LED_port = GPIOF;
- L1.LED_pin = GPIO_PIN_7;
- struct LED L5;
- L1.LED_port = GPIOF;
- L1.LED_pin = GPIO_PIN_6;
+ struct LED L0 = {tda, GPIOA};
+ struct LED L1 = {tdf, GPIOF};
+ struct LED L2 = {tdf, GPIOF};
+ struct LED L3 = {tdf, GPIOF};
+ struct LED L4 = {tdf, GPIOF};
+ struct LED L5 = {tdf, GPIOF};
 
  struct LED led_array[5];
  led_array[0] = L0;
@@ -326,23 +314,23 @@ int main(void)
 
 // Leds lights up upon a press of a button and go off upon pressing again, however it is not stable, using functions.
 
-//		  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == 0) {
-//			  counter++;
-//			  HAL_Delay(10);
-//			  if (counter > 1)
-//				  counter = 0;
-//		  }
-//
-//		  if (counter == 0) {
-//
-//			AllLedsOff();
-//
-//		  }
-//		  else if (counter == 1) {
-//
-//			AllLedsOn();
-//
-//		  }
+		  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == 0) {
+			  counter++;
+			  HAL_Delay(10);
+			  if (counter > 1)
+				  counter = 0;
+		  }
+
+		  if (counter == 0) {
+
+			AllLedsOff();
+
+		  }
+		  else if (counter == 1) {
+
+			AllLedsOn();
+
+		  }
 
 // Leds light up using true/false bool.
 
@@ -423,13 +411,6 @@ int main(void)
 //	  if (counter == 2) {
 //		  TwoDChaseLight(250);
 //	  }
-
-	  HAL_GPIO_WritePin(L0.LED_port, L0.LED_pin, GPIO_PIN_SET);
-	  HAL_GPIO_WritePin(L1.LED_port, L1.LED_pin, GPIO_PIN_SET);
-	  HAL_GPIO_WritePin(L2.LED_port, L2.LED_pin, GPIO_PIN_SET);
-	  HAL_GPIO_WritePin(L3.LED_port, L3.LED_pin, GPIO_PIN_SET);
-	  HAL_GPIO_WritePin(L4.LED_port, L4.LED_pin, GPIO_PIN_SET);
-	  HAL_GPIO_WritePin(L5.LED_port, L5.LED_pin, GPIO_PIN_SET);
 
   }
 }
