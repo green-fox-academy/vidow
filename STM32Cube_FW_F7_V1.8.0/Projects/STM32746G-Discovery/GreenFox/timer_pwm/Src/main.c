@@ -48,9 +48,11 @@
   */ 
 
 /* Private typedef -----------------------------------------------------------*/
-TIM_HandleTypeDef    TimHandle;           //the timer's config structure
-TIM_OC_InitTypeDef sConfig;
-GPIO_InitTypeDef tdf;            // create a config structure
+
+	TIM_HandleTypeDef    TimHandle;           //the timer's config structure
+	TIM_OC_InitTypeDef sConfig;
+	GPIO_InitTypeDef tda;            // create a config structure
+
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -120,13 +122,13 @@ int main(void)
   BSP_COM_Init(COM1, &uart_handle);
 
 
-  tdf.Pin = GPIO_PIN_8;            // this is about PIN 0
-  tdf.Mode = GPIO_MODE_AF_PP;  // Configure as output with push-up-down enabled
-  tdf.Pull = GPIO_NOPULL;        // the push-up-down should work as pulldown
-  tdf.Speed = GPIO_SPEED_HIGH;     // we need a high-speed output
-  tdf.Alternate = GPIO_AF1_TIM1;   // alternate function is to use TIM1 timer's first channel
+  tda.Pin = GPIO_PIN_8;            // this is about PIN 0
+  tda.Mode = GPIO_MODE_AF_PP;  // Configure as output with push-up-down enabled
+  tda.Pull = GPIO_NOPULL;        // the push-up-down should work as pulldown
+  tda.Speed = GPIO_SPEED_HIGH;     // we need a high-speed output
+  tda.Alternate = GPIO_AF1_TIM1;   // alternate function is to use TIM1 timer's first channel
 
-  HAL_GPIO_Init(GPIOA, &tdf);      // initialize the pin on GPIOA port with HAL
+  HAL_GPIO_Init(GPIOA, &tda);      // initialize the pin on GPIOA port with HAL
   
   //Setting up the timer
 
@@ -146,7 +148,7 @@ int main(void)
   HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_1);
 
-//  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
+//  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
 
 
 
