@@ -135,7 +135,7 @@ int main(void)
   __HAL_RCC_TIM1_CLK_ENABLE();
 
   TimHandle.Instance               = TIM1;
-  TimHandle.Init.Period            = 1000;
+  TimHandle.Init.Period            = 5000;
   TimHandle.Init.Prescaler         = 54000;
   TimHandle.Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;
   TimHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
