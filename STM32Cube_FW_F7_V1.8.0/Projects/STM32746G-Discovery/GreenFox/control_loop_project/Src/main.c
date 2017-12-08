@@ -168,7 +168,7 @@ int main(void) {
 	  HAL_TIM_PWM_Init(&FETHandler);
 
 	  FETOCConfig.OCMode = TIM_OCMODE_PWM1;
-	  FETOCConfig.Pulse = 250;
+	  FETOCConfig.Pulse = 0;
 	  HAL_TIM_PWM_ConfigChannel(&FETHandler, &FETOCConfig, TIM_CHANNEL_1);
 	  HAL_TIM_PWM_Start_IT(&FETHandler, TIM_CHANNEL_1);
 
@@ -216,6 +216,10 @@ int main(void) {
 
 
 	while (1) {
+
+//		if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET)) {
+//			printf("Button pressed\r\n");
+//		}
 	}
 }
 
@@ -231,13 +235,17 @@ void EXTI15_10_IRQHandler() {
 	  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10);
 }
 
-void HAL_GPIO_EXTI_CALLBACK(uint16_t GPIO_PIN) {
-	  if (GPIO_PIN == GPIO_PIN_10) {
-		  FETOCConfig.Pulse += 250;
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_PIN) {
+
+	  if (GPIO_PIN == GPIO_PIN_10 && TIM1->CCR1 <= 950) {
+		  printf("Button PIN 10 pressed\r\n");
+		  TIM1->CCR1 += 50;
 	  }
-	  else {
-		  FETOCConfig.Pulse -= 250;
+	  if (GPIO_PIN == GPIO_PIN_0 && TIM1->CCR1 >= 50) {
+		  printf("Button PIN 0 pressed\r\n");
+		  TIM1->CCR1 -= 50;
 	  }
+
 }
 
 //Interrupt Handler and Callback for Sensor Timer
