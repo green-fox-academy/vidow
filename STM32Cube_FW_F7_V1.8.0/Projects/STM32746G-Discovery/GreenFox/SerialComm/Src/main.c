@@ -48,15 +48,12 @@
  */
 
 /* Private typedef -----------------------------------------------------------*/
-UART_HandleTypeDef uart_handle;
-
-
+UART_HandleTypeDef uart_com;
+GPIO_InitTypeDef RedLed;
 
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-
-
 
 /* Private function prototypes -----------------------------------------------*/
 
@@ -105,38 +102,45 @@ int main(void) {
 	SystemClock_Config();
 
 	__HAL_RCC_GPIOA_CLK_ENABLE();
-	__HAL_RCC_GPIOB_CLK_ENABLE();
-	__HAL_RCC_GPIOF_CLK_ENABLE();
-    __HAL_RCC_TIM1_CLK_ENABLE();
-    __HAL_RCC_TIM3_CLK_ENABLE();
+
+    //Init Redled
+
+    RedLed.Pin = GPIO_PIN_0;
+    RedLed.Mode = GPIO_MODE_OUTPUT_PP;
+    RedLed.Pull = GPIO_NOPULL;
+    RedLed.Speed = GPIO_SPEED_HIGH;
+
+    HAL_GPIO_Init(GPIOA, &RedLed);
+
+    //Init uart comm
+
+    uart_com.Init.BaudRate = 9600;
+    uart_com.Init.WordLength = UART_WORDLENGTH_8B;
+    uart_com.Init.StopBits = UART_STOPBITS_1;
+    uart_com.Init.Parity = UART_PARITY_NONE;
+    uart_com.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+    uart_com.Init.Mode = UART_MODE_TX_RX;
+
+    BSP_COM_Init(COM1, &uart_com);
 
 
-//	BSP_PB_Init(BUTTON_WAKEUP, BUTTON_MODE_EXTI);
+	BSP_PB_Init(BUTTON_WAKEUP, BUTTON_MODE_EXTI);
 
 	/* Add your application code here
 	 */
-//	BSP_LED_Init(LED_GREEN);
-
-	uart_handle.Init.BaudRate = 115200;
-	uart_handle.Init.WordLength = UART_WORDLENGTH_8B;
-	uart_handle.Init.StopBits = UART_STOPBITS_1;
-	uart_handle.Init.Parity = UART_PARITY_NONE;
-	uart_handle.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-	uart_handle.Init.Mode = UART_MODE_TX_RX;
-
-	BSP_COM_Init(COM1, &uart_handle);
-
+	BSP_LED_Init(LED_GREEN);
 
 	printf("\n-----------------WELCOME-----------------\r\n");
 	printf("**********in STATIC Serial Comm project**********\r\n\n");
 
 
+
+
 	while (1) {
 
-
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
 	}
 }
-
 
 
 /**
@@ -147,7 +151,7 @@ int main(void) {
 PUTCHAR_PROTOTYPE {
 	/* Place your implementation of fputc here */
 	/* e.g. write a character to the EVAL_COM1 and Loop until the end of transmission */
-	HAL_UART_Transmit(&uart_handle, (uint8_t *) &ch, 1, 0xFFFF);
+	HAL_UART_Transmit(&uart_com, (uint8_t *) &ch, 1, 0xFFFF);
 
 	return ch;
 }
