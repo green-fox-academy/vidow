@@ -49,21 +49,14 @@
 
 /* Private typedef -----------------------------------------------------------*/
 UART_HandleTypeDef uart_handle;
-GPIO_InitTypeDef ButtonUp_A0_A0;
-GPIO_InitTypeDef ButtonDown_A1_F10;
-GPIO_InitTypeDef Sensor;
-GPIO_InitTypeDef FET;
-TIM_OC_InitTypeDef FETOCConfig;
-TIM_HandleTypeDef FETHandler;
-TIM_IC_InitTypeDef SensorICConfig;
-TIM_HandleTypeDef SensorHandler;
+
 
 
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 
-volatile uint32_t timIntPeriod;
+
 
 /* Private function prototypes -----------------------------------------------*/
 
@@ -117,83 +110,6 @@ int main(void) {
     __HAL_RCC_TIM1_CLK_ENABLE();
     __HAL_RCC_TIM3_CLK_ENABLE();
 
-	//Requires for the button up.
-
-	  ButtonUp_A0_A0.Pin = GPIO_PIN_0;
-	  ButtonUp_A0_A0.Mode = GPIO_MODE_IT_FALLING;
-	  ButtonUp_A0_A0.Pull = GPIO_PULLUP;
-	  ButtonUp_A0_A0.Speed = GPIO_SPEED_HIGH;
-
-	  HAL_GPIO_Init(GPIOA, &ButtonUp_A0_A0);
-
-	//Requires for the button down.
-
-	  ButtonDown_A1_F10.Pin = GPIO_PIN_10;
-	  ButtonDown_A1_F10.Mode = GPIO_MODE_IT_FALLING;
-	  ButtonDown_A1_F10.Pull = GPIO_PULLUP;
-	  ButtonDown_A1_F10.Speed = GPIO_SPEED_HIGH;
-	  HAL_GPIO_Init(GPIOF, &ButtonDown_A1_F10);
-
-	  HAL_NVIC_SetPriority(EXTI0_IRQn, 0x0F, 0x00);
-	  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-
-	  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0x0F, 0x00);
-	  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
-
-	  //Configuring Sensor.
-
-	  Sensor.Pin = GPIO_PIN_4;
-	  Sensor.Mode = GPIO_MODE_AF_PP;
-	  Sensor.Pull = GPIO_PULLUP;
-	  Sensor.Speed = GPIO_SPEED_FAST;
-	  Sensor.Alternate = GPIO_AF2_TIM3;
-	  HAL_GPIO_Init(GPIOB, &Sensor);
-
-	  //Configuring FET.
-
-	  FET.Pin = GPIO_PIN_8;
-	  FET.Mode = GPIO_MODE_AF_PP;
-	  FET.Pull = GPIO_PULLUP;
-	  FET.Speed = GPIO_SPEED_FAST;
-	  FET.Alternate = GPIO_AF1_TIM1;
-	  HAL_GPIO_Init(GPIOA, &FET);
-
-	  //Configuring FET PWM Timer.
-
-	  FETHandler.Instance = TIM1;
-	  FETHandler.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-	  FETHandler.Init.Period = 1000;
-	  FETHandler.Init.Prescaler = 0xFFFF;
-	  FETHandler.Init.CounterMode = TIM_COUNTERMODE_UP;
-	  HAL_TIM_PWM_Init(&FETHandler);
-
-	  FETOCConfig.OCMode = TIM_OCMODE_PWM1;
-	  FETOCConfig.Pulse = 0;
-	  HAL_TIM_PWM_ConfigChannel(&FETHandler, &FETOCConfig, TIM_CHANNEL_1);
-	  HAL_TIM_PWM_Start_IT(&FETHandler, TIM_CHANNEL_1);
-
-	  //Configuring Sensor Timer.
-
-	  SensorHandler.Instance = TIM3;
-	  SensorHandler.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-	  SensorHandler.Init.Period = 1000;
-	  SensorHandler.Init.Prescaler = 0xFFFF;
-	  SensorHandler.Init.CounterMode = TIM_COUNTERMODE_UP;
-	  HAL_TIM_Base_Init(&SensorHandler);
-	  HAL_TIM_Base_Start_IT(&SensorHandler);
-
-	  //Configuring Sensor IC.
-
-	  SensorICConfig.ICPolarity = TIM_ICPOLARITY_RISING;
-	  SensorICConfig.ICSelection = TIM_ICSELECTION_DIRECTTI;
-	  SensorICConfig.ICPrescaler = TIM_ICPSC_DIV2;
-	  SensorICConfig.ICFilter = 0xF;
-	  HAL_TIM_IC_ConfigChannel(&SensorHandler, &SensorICConfig, TIM_CHANNEL_1);
-	  HAL_TIM_IC_Start_IT(&SensorHandler, TIM_CHANNEL_1);
-
-	  HAL_NVIC_SetPriority(TIM3_IRQn, 0x0F, 0x00);
-	  HAL_NVIC_EnableIRQ(TIM3_IRQn);
-
 
 //	BSP_PB_Init(BUTTON_WAKEUP, BUTTON_MODE_EXTI);
 
@@ -212,57 +128,16 @@ int main(void) {
 
 
 	printf("\n-----------------WELCOME-----------------\r\n");
-	printf("**********in STATIC Control Loop project**********\r\n\n");
+	printf("**********in STATIC Serial Comm project**********\r\n\n");
 
 
 	while (1) {
 
-//		if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET)) {
-//			printf("Button pressed\r\n");
-//		}
+
 	}
 }
 
-//Interrupt functions
 
-//Interrupt Handler and Callback for Buttons
-
-void EXTI0_IRQHandler() {
-	  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
-}
-
-void EXTI15_10_IRQHandler() {
-	  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10);
-}
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_PIN) {
-
-	  if (GPIO_PIN == GPIO_PIN_10 && TIM1->CCR1 <= 950) {
-		  printf("Button PIN 10 pressed\r\n");
-//		  TIM1->CCR1 += 50;
-		  FETOCConfig.Pulse += 50;
-		  HAL_TIM_PWM_ConfigChannel(&FETHandler, &FETOCConfig, TIM_CHANNEL_1);
-		  HAL_TIM_PWM_Start_IT(&FETHandler, TIM_CHANNEL_1);
-	  }
-	  if (GPIO_PIN == GPIO_PIN_0 && TIM1->CCR1 >= 50) {
-		  printf("Button PIN 0 pressed\r\n");
-//		  TIM1->CCR1 -= 50;
-		  FETOCConfig.Pulse -= 50;
-		  HAL_TIM_PWM_ConfigChannel(&FETHandler, &FETOCConfig, TIM_CHANNEL_1);
-		  HAL_TIM_PWM_Start_IT(&FETHandler, TIM_CHANNEL_1);
-	  }
-
-}
-
-//Interrupt Handler and Callback for Sensor Timer
-
-void TIM3_IRQHandler() {
-	HAL_TIM_IRQHandler(&SensorHandler);
-}
-
-void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
-	//logic
-}
 
 /**
  * @brief  Retargets the C library printf function to the USART.
