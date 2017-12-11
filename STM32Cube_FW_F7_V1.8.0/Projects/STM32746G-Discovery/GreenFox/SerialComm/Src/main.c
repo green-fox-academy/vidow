@@ -48,15 +48,17 @@
  */
 
 /* Private typedef -----------------------------------------------------------*/
-UART_HandleTypeDef uart_com;
 GPIO_InitTypeDef RedLed;
+UART_HandleTypeDef UartHandle;
+GPIO_InitTypeDef gpio_init_structure;
 
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 
 /* Private function prototypes -----------------------------------------------*/
-
+void Uart_Handle();
+void Uart_Init();
 #ifdef __GNUC__
 /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
  set to 'Yes') calls __io_putchar() */
@@ -71,7 +73,6 @@ static void MPU_Config(void);
 static void CPU_CACHE_Enable(void);
 
 /* Private functions ---------------------------------------------------------*/
-
 /**
  * @brief  Main program
  * @param  None
@@ -101,7 +102,7 @@ int main(void) {
 	/* Configure the System clock to have a frequency of 216 MHz */
 	SystemClock_Config();
 
-	__HAL_RCC_GPIOA_CLK_ENABLE();
+
 
     //Init Redled
 
@@ -112,36 +113,86 @@ int main(void) {
 
     HAL_GPIO_Init(GPIOA, &RedLed);
 
-    //Init uart comm
+    /* Enable GPIO clock */
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+	__HAL_RCC_GPIOB_CLK_ENABLE();
 
-    uart_com.Init.BaudRate = 9600;
-    uart_com.Init.WordLength = UART_WORDLENGTH_8B;
-    uart_com.Init.StopBits = UART_STOPBITS_1;
-    uart_com.Init.Parity = UART_PARITY_NONE;
-    uart_com.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-    uart_com.Init.Mode = UART_MODE_TX_RX;
+    /* Enable USART clock */
+    __HAL_RCC_USART1_CLK_ENABLE();
 
-    BSP_COM_Init(COM1, &uart_com);
+    //Uart init
+    Uart_Init();
 
-
-	BSP_PB_Init(BUTTON_WAKEUP, BUTTON_MODE_EXTI);
+    //Uart config
+    Uart_Handle();
 
 	/* Add your application code here
 	 */
-	BSP_LED_Init(LED_GREEN);
+
+
+//	BSP_LED_Init(LED_GREEN);
 
 	printf("\n-----------------WELCOME-----------------\r\n");
 	printf("**********in STATIC Serial Comm project**********\r\n\n");
 
 
 
+	uint8_t pData = 0;
+	size_t Size = 1;
+//	char *outgoing;
+//	int length;
+
+//	setvbuf(stdin, NULL, _IONBF, 0);
 
 	while (1) {
+
+		HAL_UART_Receive(&UartHandle, &pData, Size, 100);
+
+//		HAL_UART_Transmit(&UartHandle, (uint8_t *) outgoing, length, 100);
+		if (pData != 0) {
+			printf("%c\r\n", pData);
+			pData = 0;
+		}
+
 
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
 	}
 }
 
+void Uart_Init(){
+
+//	GPIO_InitTypeDef gpio_init_structure;
+
+
+    /* Configure USART Tx as alternate function */
+    gpio_init_structure.Pin = GPIO_PIN_9;
+    gpio_init_structure.Mode = GPIO_MODE_AF_PP;
+    gpio_init_structure.Speed = GPIO_SPEED_FAST;
+    gpio_init_structure.Pull = GPIO_PULLUP;
+    gpio_init_structure.Alternate = GPIO_AF7_USART1;
+    HAL_GPIO_Init(GPIOA, &gpio_init_structure);
+
+    /* Configure USART Rx as alternate function */
+    gpio_init_structure.Pin = GPIO_PIN_7;
+    gpio_init_structure.Mode = GPIO_MODE_AF_PP;
+    gpio_init_structure.Alternate = GPIO_AF7_USART1;
+    HAL_GPIO_Init(GPIOB, &gpio_init_structure);
+
+    /* USART configuration */
+    UartHandle.Instance = USART1;
+}
+void Uart_Handle(){
+//	UART_HandleTypeDef UartHandle;
+
+    UartHandle.Init.BaudRate = 9600;
+    UartHandle.Init.WordLength = UART_WORDLENGTH_8B;
+    UartHandle.Init.StopBits = UART_STOPBITS_1;
+    UartHandle.Init.Parity = UART_PARITY_NONE;
+    UartHandle.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+    UartHandle.Init.Mode = UART_MODE_TX_RX;
+
+    HAL_UART_Init(&UartHandle);
+}
 
 /**
  * @brief  Retargets the C library printf function to the USART.
@@ -151,7 +202,7 @@ int main(void) {
 PUTCHAR_PROTOTYPE {
 	/* Place your implementation of fputc here */
 	/* e.g. write a character to the EVAL_COM1 and Loop until the end of transmission */
-	HAL_UART_Transmit(&uart_com, (uint8_t *) &ch, 1, 0xFFFF);
+	HAL_UART_Transmit(&UartHandle, (uint8_t *) &ch, 1, 0xFFFF);
 
 	return ch;
 }
