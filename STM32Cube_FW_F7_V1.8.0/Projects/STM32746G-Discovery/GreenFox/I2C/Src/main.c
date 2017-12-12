@@ -52,12 +52,17 @@ UART_HandleTypeDef uart_handle;
 GPIO_InitTypeDef I2CData;
 GPIO_InitTypeDef I2CCLK;
 I2C_HandleTypeDef I2cHandle;
+GPIO_InitTypeDef FanControl;
 
 /* Private define ------------------------------------------------------------*/
 
 #define CLK_Pin 	GPIO_PIN_8
 #define Data_Pin 	GPIO_PIN_9
+#define FanPin		GPIO_PIN_8
 #define I2CAddress	0b1001000 << 1
+#define __FAN__		GPIOA, GPIO_PIN_8
+#define ON			GPIO_PIN_SET
+#define OFF			GPIO_PIN_RESET
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -107,9 +112,6 @@ int main(void) {
 
 	/* Uart Init */
 
-
-
-
 	/* STM32F7xx HAL library initialization:
 	 - Configure the Flash ART accelerator on ITCM interface
 	 - Configure the Systick to generate an interrupt each 1 msec
@@ -121,9 +123,17 @@ int main(void) {
 	/* Configure the System clock to have a frequency of 216 MHz */
 	SystemClock_Config();
 
-    /* Enable GPIO clock */
+    /* Enable GPIO, I2C clocks */
 	__HAL_RCC_I2C1_CLK_ENABLE();
 	__HAL_RCC_GPIOB_CLK_ENABLE();
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+
+	FanControl.Mode = GPIO_MODE_OUTPUT_OD;
+	FanControl.Pin = FanPin;
+	FanControl.Pull = GPIO_NOPULL;
+	FanControl.Speed = GPIO_SPEED_FAST;
+
+	HAL_GPIO_Init(GPIOA, &FanControl);
 
 	uart_init();
 
@@ -145,6 +155,11 @@ int main(void) {
 	while (1) {
 
 		Write_Register();
+
+		HAL_GPIO_WritePin(__FAN__, ON);
+//		HAL_Delay(5000);
+//		HAL_GPIO_WritePin(__FAN__, OFF);
+//		HAL_Delay(1000);
 	}
 }
 
@@ -194,8 +209,6 @@ void Write_Register(){
 	HAL_Delay(1000);
 
 }
-
-
 
 /**
  * @brief  Retargets the C library printf function to the USART.
