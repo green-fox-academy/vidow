@@ -48,26 +48,27 @@
  */
 
 /* Private typedef -----------------------------------------------------------*/
-GPIO_InitTypeDef RedLed;
-UART_HandleTypeDef UartHandle;
-GPIO_InitTypeDef gpio_init_structure;
+UART_HandleTypeDef uart_handle;
+GPIO_InitTypeDef I2CData;
+GPIO_InitTypeDef I2CCLK;
+I2C_HandleTypeDef I2cHandle;
 
 /* Private define ------------------------------------------------------------*/
-#define LedPort	GPIOF
-#define LedPin 	GPIO_PIN_10
-#define __RED_LED__ LedPort, LedPin
-#define ON GPIO_PIN_SET
-#define OFF GPIO_PIN_RESET
+
+#define CLK_Pin 	GPIO_PIN_8
+#define Data_Pin 	GPIO_PIN_9
+#define I2CAddress	0b1001000 << 1
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+volatile uint8_t data_t[1];
+volatile uint8_t data_r[1];
 
 /* Private function prototypes -----------------------------------------------*/
-void Uart_Handle();
-void Uart_Init();
-void RedLed_Init();
-void Read_Input(char *Input);
-void Write_Output(char *Input);
+void uart_init();
+void I2CCLK_Init();
+void I2CData_Init();
+void Write_Register();
 
 #ifdef __GNUC__
 /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
@@ -104,6 +105,11 @@ int main(void) {
 	/* Enable the CPU Cache */
 	CPU_CACHE_Enable();
 
+	/* Uart Init */
+
+
+
+
 	/* STM32F7xx HAL library initialization:
 	 - Configure the Flash ART accelerator on ITCM interface
 	 - Configure the Systick to generate an interrupt each 1 msec
@@ -116,61 +122,29 @@ int main(void) {
 	SystemClock_Config();
 
     /* Enable GPIO clock */
-	__HAL_RCC_GPIOA_CLK_ENABLE();
+	__HAL_RCC_I2C1_CLK_ENABLE();
 	__HAL_RCC_GPIOB_CLK_ENABLE();
-	__HAL_RCC_GPIOF_CLK_ENABLE();
 
-    /* Enable USART clock */
-    __HAL_RCC_USART1_CLK_ENABLE();
+	uart_init();
 
-    //Uart init
-    Uart_Init();
+	I2CCLK_Init();
 
-    //Uart config
-    Uart_Handle();
+	I2CData_Init();
 
-    //Init Redled
-	RedLed_Init();
+	I2cHandle.Instance = I2C1;
+	I2cHandle.Init.Timing = 0x40912732;
+	I2cHandle.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
 
-	/* Add your application code here
-	 */
-    HAL_NVIC_SetPriority(USART1_IRQn, 0x0F, 0x00);
-    HAL_NVIC_EnableIRQ(USART1_IRQn);
+	HAL_I2C_Init(&I2cHandle);
 
-
-//	BSP_LED_Init(LED_GREEN);
 
 	printf("\n-----------------WELCOME-----------------\r\n");
-	printf("**********in STATIC Serial Comm project**********\r\n\n");
+	printf("**********in STATIC Temp I2C Sensor project**********\r\n\n");
 
-
-//	setvbuf(stdin, NULL, _IONBF, 0);
-
-//	  HAL_GPIO_TogglePin(GPIOF, GPIO_PIN_10);
-//	  HAL_Delay(1000);
-
-	char User_Input[100];
 
 	while (1) {
 
-		Read_Input(User_Input);
-		if (strcmp (User_Input, "on\n") == 0) {
-			HAL_GPIO_WritePin(__RED_LED__, ON);
-
-		} else if (strcmp (User_Input, "off\n") == 0) {
-			HAL_GPIO_WritePin(__RED_LED__, OFF);
-
-		} else {
-			for (int i = 0; i < 3; i++) {
-				HAL_GPIO_WritePin(__RED_LED__, ON);
-				HAL_Delay(500);
-				HAL_GPIO_WritePin(__RED_LED__, OFF);
-				HAL_Delay(500);
-			}
-		}
-
-		Write_Output(User_Input);
-		User_Input[0] = '\0';
+		Write_Register();
 	}
 }
 
@@ -178,72 +152,47 @@ int main(void) {
 //	HAL_USART_IRQHandler(GPIO_PIN_7);
 //}
 
-//void USART1_Callback
+void uart_init(){
 
-void RedLed_Init(){
-
-	GPIO_InitTypeDef RedLed;
-
-    RedLed.Pin = LedPin;
-    RedLed.Mode = GPIO_MODE_OUTPUT_PP;
-    RedLed.Pull = GPIO_PULLDOWN;
-    RedLed.Speed = GPIO_SPEED_HIGH;
-
-    HAL_GPIO_Init(LedPort, &RedLed);
+	uart_handle.Init.BaudRate = 115200;
+	uart_handle.Init.WordLength = UART_WORDLENGTH_8B;
+	uart_handle.Init.StopBits = UART_STOPBITS_1;
+	uart_handle.Init.Parity = UART_PARITY_NONE;
+	uart_handle.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+	uart_handle.Init.Mode = UART_MODE_TX_RX;
+	BSP_COM_Init(COM1, &uart_handle);
 }
 
-void Uart_Init(){
+void I2CCLK_Init(){
 
-//	GPIO_InitTypeDef gpio_init_structure;
-
-
-    /* Configure USART Tx as alternate function */
-    gpio_init_structure.Pin = GPIO_PIN_9;
-    gpio_init_structure.Mode = GPIO_MODE_AF_PP;
-    gpio_init_structure.Speed = GPIO_SPEED_FAST;
-    gpio_init_structure.Pull = GPIO_PULLUP;
-    gpio_init_structure.Alternate = GPIO_AF7_USART1;
-    HAL_GPIO_Init(GPIOA, &gpio_init_structure);
-
-    /* Configure USART Rx as alternate function */
-    gpio_init_structure.Pin = GPIO_PIN_7;
-    gpio_init_structure.Mode = GPIO_MODE_AF_PP;
-    gpio_init_structure.Alternate = GPIO_AF7_USART1;
-    HAL_GPIO_Init(GPIOB, &gpio_init_structure);
-
-}
-void Uart_Handle(){
-//	UART_HandleTypeDef UartHandle;
-
-	UartHandle.Instance = USART1;
-    UartHandle.Init.BaudRate = 9600;
-    UartHandle.Init.WordLength = UART_WORDLENGTH_8B;
-    UartHandle.Init.StopBits = UART_STOPBITS_1;
-    UartHandle.Init.Parity = UART_PARITY_NONE;
-    UartHandle.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-    UartHandle.Init.Mode = UART_MODE_TX_RX;
-
-    HAL_UART_Init(&UartHandle);
+	I2CCLK.Mode = GPIO_MODE_AF_OD;
+	I2CCLK.Alternate = GPIO_AF4_I2C1;
+	I2CCLK.Pin = GPIO_PIN_8;
+	I2CCLK.Pull = GPIO_PULLUP;
+	I2CCLK.Speed = GPIO_SPEED_FAST;
+	HAL_GPIO_Init(GPIOB, &I2CCLK);
 }
 
-void Read_Input(char *Input) {
-	unsigned int size = 0;
-	Input[0] = '\0';
+void I2CData_Init(){
 
-	do {
-		HAL_UART_Receive(&UartHandle, (uint8_t *) &Input[size], 1, HAL_MAX_DELAY);
-		size++;
-	} while (Input[size - 1] != '\n');
-
-	Input[size] = '\0';
+	I2CData.Mode = GPIO_MODE_AF_OD;
+	I2CData.Alternate = GPIO_AF4_I2C1;
+	I2CData.Pin = Data_Pin;
+	I2CData.Pull = GPIO_PULLUP;
+	I2CData.Speed = GPIO_SPEED_FAST;
+	HAL_GPIO_Init(GPIOB, &I2CData);
 }
 
-void Write_Output(char *Input) {
-	unsigned int i = 0;
-	while (Input[i] != '\0') {
-		HAL_UART_Transmit(&UartHandle, (uint8_t *) &Input[i], 1, 0xFFFF);
-		i++;
-	}
+void Write_Register(){
+
+	HAL_I2C_Master_Transmit(&I2cHandle, I2CAddress, (uint8_t *) data_t, 1, 10000);
+
+	HAL_I2C_Master_Receive(&I2cHandle, I2CAddress, (uint8_t *) data_r, 1, 10000);
+
+	printf("%d\n", data_r[0]);
+
+	HAL_Delay(1000);
+
 }
 
 
@@ -256,7 +205,7 @@ void Write_Output(char *Input) {
 PUTCHAR_PROTOTYPE {
 	/* Place your implementation of fputc here */
 	/* e.g. write a character to the EVAL_COM1 and Loop until the end of transmission */
-	HAL_UART_Transmit(&UartHandle, (uint8_t *) &ch, 1, 0xFFFF);
+	HAL_UART_Transmit(&uart_handle, (uint8_t *) &ch, 1, 0xFFFF);
 
 	return ch;
 }
