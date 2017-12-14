@@ -67,7 +67,7 @@ TIM_HandleTypeDef Tim1Handle;
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-volatile uint8_t counter;
+volatile uint8_t ButtonPress;
 /* Private function prototypes -----------------------------------------------*/
 static void tim_config(void);
 static void BoardLed_Init(void);
@@ -133,8 +133,6 @@ int main(void)
 	/* Enable Timer clock */
 	__HAL_RCC_TIM1_CLK_ENABLE();
 
-
-
 	BoardButton_Init();
 	BoardLed_Init();
 	UART_Init_Handle();
@@ -146,15 +144,26 @@ int main(void)
   /* Infinite loop */
 
 
-	HAL_GetTick();
+//	HAL_GetTick();
 
 
   while (1)
   {
 
-	  printf("Time: %d\r\n", TIM1->CNT);
-	  HAL_Delay(1000);
+//	  printf("Time: %d\r\n", TIM1->CNT);
+//	  HAL_Delay(1000);
   }
+}
+
+void EXTI15_10_IRQHandler(){
+	HAL_GPIO_EXTI_IRQHandler(ButtonPin);
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+	if (HAL_GPIO_ReadPin(__BLUE_BUTTON__)) {
+		ButtonPress++;
+
+	}
 }
 
 void TIM1_UP_TIM10_IRQHandler(){
@@ -162,7 +171,12 @@ void TIM1_UP_TIM10_IRQHandler(){
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	HAL_GPIO_TogglePin(__GREEN_LED__);
+	if (ButtonPress % 2 == 0) {
+		HAL_GPIO_TogglePin(__GREEN_LED__);
+	}
+	else {
+		HAL_GPIO_WritePin(__GREEN_LED__, OFF);
+	}
 }
 
 static void tim_config(void){
@@ -175,10 +189,9 @@ static void tim_config(void){
 
 	HAL_TIM_Base_Init(&Tim1Handle);
 	HAL_TIM_Base_Start_IT(&Tim1Handle);
-
-	HAL_NVIC_SetPriority(TIM1_UP_TIM10_IRQn, 0xF, 0x0);
+	/*Timer interrupt */
+	HAL_NVIC_SetPriority(TIM1_UP_TIM10_IRQn, 0x0, 0x0);
 	HAL_NVIC_EnableIRQ(TIM1_UP_TIM10_IRQn);
-
 }
 
 static void BoardLed_Init(void){
@@ -188,17 +201,18 @@ static void BoardLed_Init(void){
 	  BoardLed.Pull = GPIO_PULLDOWN;
 	  BoardLed.Speed = GPIO_SPEED_HIGH;
 	  HAL_GPIO_Init(GPIOI, &BoardLed);
-
 }
 
 static void BoardButton_Init(void){
 
 	  BoardButton.Pin = ButtonPin;
-	  BoardButton.Mode = GPIO_MODE_INPUT;
-	  BoardButton.Pull = GPIO_PULLUP;
+	  BoardButton.Mode = GPIO_MODE_IT_RISING;
+	  BoardButton.Pull = GPIO_NOPULL;
 	  BoardButton.Speed = GPIO_SPEED_HIGH;
 	  HAL_GPIO_Init(GPIOI, &BoardButton);
-
+	  /*Button interrupt*/
+	  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0xF, 0x0);
+	  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
 static void UART_Init_Handle(void){
