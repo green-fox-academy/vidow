@@ -23,6 +23,7 @@
 |  Day 3: |Natinonal Holiday| Day 3: |[OOP Part II](https://github.com/greenfox-academy/vidow/tree/master/Week%206/Day%203)|
 |  Day 4: |[Practice](https://github.com/greenfox-academy/vidow/tree/master/Week%205/Day%201)| Day 4: |[C++ ToDo App](https://github.com/greenfox-academy/vidow/tree/master/Week%206/Day%204/ToDoApp_in_Cpp)|
 |  Day 5: |[1st Exam](https://github.com/vidow/static-foundation-exam-1st)| Day 5: |[C++ ToDo App](https://github.com/greenfox-academy/vidow/tree/master/Week%202/Day%204/Josephus_Problem)|
+
 | **Week 7** | | **Week 8**||
 | ---- |---- |----- |----- |
 | Day 1: |[C++ error Handling](https://github.com/greenfox-academy/vidow/tree/master/Week%207/Day%201)| Day 1: |[LED-blinker & Push button tasks](https://github.com/greenfox-academy/vidow/blob/master/STM32Cube_FW_F7_V1.8.0/Projects/STM32746G-Discovery/GreenFox/led_blinker/Src/main.cpp)|
