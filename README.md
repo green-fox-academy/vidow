@@ -34,7 +34,7 @@
 
 | **Week 9** | | **Week 10**||
 | ---- |---- |----- |----- |
-| Day 1: [PWM](https://github.com/greenfox-academy/vidow/blob/master/STM32Cube_FW_F7_V1.8.0/Projects/STM32746G-Discovery/GreenFox/interrupts/Src/main.c)| Day 1: |[UART communication](https://github.com/greenfox-academy/vidow/tree/master/STM32Cube_FW_F7_V1.8.0/Projects/STM32746G-Discovery/GreenFox/SerialComm/Src)|
+| Day 1: |[PWM](https://github.com/greenfox-academy/vidow/blob/master/STM32Cube_FW_F7_V1.8.0/Projects/STM32746G-Discovery/GreenFox/interrupts/Src/main.c)| Day 1: |[UART communication](https://github.com/greenfox-academy/vidow/tree/master/STM32Cube_FW_F7_V1.8.0/Projects/STM32746G-Discovery/GreenFox/SerialComm/Src)|
 | Day 2: |[Interrupts](https://github.com/greenfox-academy/vidow/blob/master/STM32Cube_FW_F7_V1.8.0/Projects/STM32746G-Discovery/GreenFox/interrupts/Src/main.c)| Day 2: |[I2C](https://github.com/greenfox-academy/vidow/blob/master/STM32Cube_FW_F7_V1.8.0/Projects/STM32746G-Discovery/GreenFox/I2C/Src/main.c)|
 |  Day 3: |[LED Dynamo](https://github.com/greenfox-academy/vidow/blob/master/STM32Cube_FW_F7_V1.8.0/Projects/STM32746G-Discovery/GreenFox/Practice_Interrupt/Src/main.c)| Day 3: |[Control loop](https://github.com/greenfox-academy/vidow/tree/master/STM32Cube_FW_F7_V1.8.0/Projects/STM32746G-Discovery/GreenFox/control_loop_project/Src)|
 |  Day 4: |[Practice](https://github.com/greenfox-academy/vidow/tree/master/STM32Cube_FW_F7_V1.8.0/Projects/STM32746G-Discovery/GreenFox)| Day 4: |[Control loop](https://github.com/greenfox-academy/vidow/tree/master/STM32Cube_FW_F7_V1.8.0/Projects/STM32746G-Discovery/GreenFox/control_loop_project/Src)|
